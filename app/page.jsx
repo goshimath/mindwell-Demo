@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
 const demoData = {
@@ -8,23 +9,23 @@ const demoData = {
     {
       id: 'stress',
       title: { en: 'Stress Management', hi: 'तनाव प्रबंधन' },
-      topic: 'stress',
       duration: '04:12',
       image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
+      description: 'Breathing tools and classroom-ready calm routines.',
     },
     {
       id: 'mindfulness',
       title: { en: 'Mindfulness Basics', hi: 'माइंडफुलनेस की शुरुआत' },
-      topic: 'mindfulness',
       duration: '03:48',
       image: 'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1200&q=80',
+      description: 'Short focus practices for daily emotional balance.',
     },
     {
       id: 'resilience',
       title: { en: 'Emotional Resilience', hi: 'भावनात्मक मजबूती' },
-      topic: 'resilience',
       duration: '05:05',
       image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+      description: 'Bounce-back habits for confidence and growth.',
     },
   ],
   students: [
@@ -41,7 +42,7 @@ const STRINGS = {
     appName: 'MindWell',
     tagline: 'A school wellbeing platform that feels warm for families and credible for schools.',
     loginTitle: 'Welcome to MindWell',
-    loginSub: 'A warm demo for school mental wellbeing, built for a fast hackathon pitch.',
+    loginSub: 'Support wellbeing across classrooms, homes, and school leadership with a clean, enterprise-ready experience.',
     role: 'Role',
     email: 'Email',
     password: 'Password',
@@ -50,39 +51,41 @@ const STRINGS = {
     student: 'Student',
     admin: 'Admin',
     parent: 'Parent',
-    studentDashboard: 'Student dashboard',
-    adminDashboard: 'Admin dashboard',
-    parentDashboard: 'Parent dashboard',
+    studentDashboard: 'My Learning',
+    adminDashboard: 'Dashboard',
+    parentDashboard: 'Child Progress',
     videos: 'Wellbeing videos',
     progress: 'Progress',
     markComplete: 'Mark Complete',
     completed: 'Completed',
-    watched: 'Watched',
     enrolled: 'Students enrolled',
     completion: 'Completion %',
     watchedVideos: 'Videos watched',
-    parentComing: 'Coming in Blanket tier',
-    bilingualHint: 'English + Hindi labels',
-    installHint: 'Installable PWA',
-    downloadHint: 'Offline-ready demo shell',
-    demoCreds: 'Demo credentials',
+    demoCreds: 'Demo access',
     schoolId: 'School ID',
-    studentId: 'Student ID',
-    progressLabel: 'Progress bar',
-    home: 'Home',
-    stats: 'Analytics',
-    classes: 'Classes',
-    startToday: 'Start today',
-    trustworthy: 'Privacy-safe aggregate view',
+    startToday: 'Get started',
+    trustworthy: 'Built for multi-school rollouts, role-based access, and clean reporting.',
     whatChildLearns: 'What your child is learning',
     resources: 'Parent resources',
-    quickNotes: 'Milestones and wellness notes',
+    quickNotes: 'Milestones and wellbeing notes',
+    switchView: 'View as',
+    dashboard: 'Dashboard',
+    students: 'Students',
+    reports: 'Reports',
+    curriculum: 'Curriculum',
+    settings: 'Settings',
+    myLearning: 'My Learning',
+    achievements: 'Achievements',
+    pricing: 'Pricing',
+    mostPopular: 'Most Popular',
+    getStarted: 'Get Started / Shuru Karein',
+    enterprise: 'Enterprise-ready for schools at scale',
   },
   hi: {
     appName: 'माइंडवेल',
     tagline: 'परिवारों के लिए गर्मजोशी, स्कूलों के लिए भरोसेमंद wellbeing platform.',
     loginTitle: 'माइंडवेल में आपका स्वागत है',
-    loginSub: 'स्कूल mental wellbeing का warm demo, hackathon pitch के लिए तैयार.',
+    loginSub: 'क्लासरूम, घर और स्कूल leadership — तीनों के लिए एक polished experience.',
     role: 'भूमिका',
     email: 'ईमेल',
     password: 'पासवर्ड',
@@ -91,37 +94,58 @@ const STRINGS = {
     student: 'छात्र',
     admin: 'प्रशासक',
     parent: 'अभिभावक',
-    studentDashboard: 'छात्र डैशबोर्ड',
-    adminDashboard: 'प्रशासक डैशबोर्ड',
-    parentDashboard: 'अभिभावक डैशबोर्ड',
+    studentDashboard: 'मेरी पढ़ाई',
+    adminDashboard: 'डैशबोर्ड',
+    parentDashboard: 'बच्चे की प्रगति',
     videos: 'वेलबीइंग वीडियो',
     progress: 'प्रगति',
     markComplete: 'पूर्ण करें',
     completed: 'पूर्ण',
-    watched: 'देखा गया',
     enrolled: 'नामांकित छात्र',
     completion: 'पूर्णता %',
     watchedVideos: 'देखे गए वीडियो',
-    parentComing: 'ब्लैंकेट टियर में उपलब्ध',
-    bilingualHint: 'अंग्रेज़ी + हिंदी लेबल',
-    installHint: 'इंस्टॉल करने योग्य PWA',
-    downloadHint: 'ऑफ़लाइन-रेडी डेमो शेल',
-    demoCreds: 'डेमो क्रेडेंशियल',
+    demoCreds: 'डेमो एक्सेस',
     schoolId: 'स्कूल ID',
-    studentId: 'छात्र ID',
-    progressLabel: 'प्रगति पट्टी',
-    home: 'होम',
-    stats: 'एनालिटिक्स',
-    classes: 'कक्षाएँ',
-    startToday: 'आज शुरू करें',
-    trustworthy: 'गोपनीयता-सुरक्षित aggregate view',
+    startToday: 'शुरू करें',
+    trustworthy: 'Multi-school rollout, role-based access, और clean reporting के लिए बनाया गया.',
     whatChildLearns: 'आपका बच्चा क्या सीख रहा है',
     resources: 'अभिभावक संसाधन',
-    quickNotes: 'माइलस्टोन और wellness notes',
+    quickNotes: 'माइलस्टोन और wellbeing notes',
+    switchView: 'देखें',
+    dashboard: 'डैशबोर्ड',
+    students: 'छात्र',
+    reports: 'रिपोर्ट',
+    curriculum: 'पाठ्यक्रम',
+    settings: 'सेटिंग्स',
+    myLearning: 'मेरी पढ़ाई',
+    achievements: 'उपलब्धियाँ',
+    pricing: 'प्राइसिंग',
+    mostPopular: 'सबसे लोकप्रिय',
+    getStarted: 'शुरू करें / Get Started',
+    enterprise: 'बड़े स्कूलों के लिए enterprise-ready',
   },
 };
 
 const AVATAR_STYLE = 'https://api.dicebear.com/7.x/avataaars/svg?seed=';
+const NAV_ITEMS = {
+  admin: [
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'students', label: 'Students' },
+    { id: 'reports', label: 'Reports' },
+    { id: 'curriculum', label: 'Curriculum' },
+    { id: 'settings', label: 'Settings' },
+  ],
+  student: [
+    { id: 'my-learning', label: 'My Learning' },
+    { id: 'progress', label: 'Progress' },
+    { id: 'achievements', label: 'Achievements' },
+  ],
+  parent: [
+    { id: 'child-progress', label: 'Child Progress' },
+    { id: 'resources', label: 'Resources' },
+    { id: 'support', label: 'Support' },
+  ],
+};
 
 function getInitialState() {
   if (typeof window === 'undefined') return null;
@@ -133,7 +157,7 @@ function getInitialState() {
 }
 
 function buildState() {
-  const base = { school: demoData.school, users: demoData.students, videoProgress: {} };
+  const base = { school: demoData.school, users: demoData.students, videoProgress: {}, activeSection: 'dashboard' };
   demoData.students.forEach((student) => {
     base.videoProgress[student.id] = { ...student.progress };
   });
@@ -144,37 +168,55 @@ function percentFromProgress(progress, total = 3) {
   return Math.round((Object.values(progress || {}).filter(Boolean).length / total) * 100);
 }
 
-function Donut({ value }) {
-  const style = {
-    background: `conic-gradient(#14b8a6 ${value * 3.6}deg, #d8f0eb 0deg)`,
-  };
-  return (
-    <div className="donut" style={style}>
-      <div className="donutInner">
-        <strong>{value}%</strong>
-        <span>done</span>
-      </div>
-    </div>
-  );
-}
-
-function StatCard({ tone, icon, label, value }) {
+function StatCard({ tone, icon, label, value, trend }) {
   return (
     <div className={`statCard ${tone}`}>
-      <div className="statIcon">{icon}</div>
-      <div>
-        <div className="statLabel">{label}</div>
-        <div className="statValue">{value}</div>
+      <div className="statTop">
+        <div className="statIcon">{icon}</div>
+        <div className="statTrend">{trend}</div>
       </div>
+      <div className="statLabel">{label}</div>
+      <div className="statValue">{value}</div>
     </div>
   );
 }
 
-function TopicThumb({ topic, image, title }) {
+function VideoCard({ video, done, lang, onPlay, onComplete, selected }) {
   return (
-    <div className="thumbWrap">
-      <img src={image} alt={title} className="thumbImage" />
-      <div className={`thumbOverlay ${topic}`} />
+    <article className={`videoCard ${selected ? 'selected' : ''}`}>
+      <div className="videoMedia">
+        <img src={video.image} alt={video.title[lang]} className="videoThumb" />
+        <span className="durationBadge">{video.duration}</span>
+      </div>
+      <div className="videoBody">
+        <div className="videoHead">
+          <div>
+            <h5>{video.title[lang]}</h5>
+            <p>{video.description}</p>
+          </div>
+          <span className="statusPill">{done ? 'Completed' : 'In progress'}</span>
+        </div>
+        <div className="progressBar"><div className="progressFill" style={{ width: done ? '100%' : '24%' }} /></div>
+        <div className="btnRow">
+          <button className="secondaryBtn" onClick={onPlay}>Play</button>
+          <button className="primaryBtn compact" onClick={onComplete}>{done ? 'Completed' : 'Mark Complete'}</button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function PricingCard({ title, price, subtitle, features, popular = false }) {
+  return (
+    <div className={`pricingCard ${popular ? 'popular' : ''}`}>
+      {popular && <div className="popularBadge">Most Popular</div>}
+      <h3>{title}</h3>
+      <div className="pricingValue">{price}</div>
+      <p>{subtitle}</p>
+      <ul>
+        {features.map((feature) => <li key={feature}>{feature}</li>)}
+      </ul>
+      <button className="primaryBtn pricingCta">Get Started / Shuru Karein</button>
     </div>
   );
 }
@@ -189,10 +231,14 @@ export default function Page() {
   const [session, setSession] = useState(null);
   const [state, setState] = useState(buildState);
   const [selectedVideo, setSelectedVideo] = useState(demoData.videos[0].id);
+  const [section, setSection] = useState('dashboard');
 
   useEffect(() => {
     const existing = getInitialState();
-    if (existing) setState(existing);
+    if (existing) {
+      setState(existing);
+      setSection(existing.activeSection || 'dashboard');
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
@@ -225,11 +271,12 @@ export default function Page() {
       (email === 'student1@mindwell.app' && password === 'demo123' && role === 'student') ||
       (email === 'parent@mindwell.app' && password === 'demo123' && role === 'parent');
     if (!valid) {
-      alert('Invalid demo credentials');
+      alert('Invalid access credentials');
       return;
     }
     setSession({ role, email });
     setMode('app');
+    setSection(role === 'student' ? 'my-learning' : role === 'parent' ? 'child-progress' : 'dashboard');
   };
 
   const logout = () => {
@@ -251,8 +298,6 @@ export default function Page() {
     }));
   };
 
-  const currentVideo = demoData.videos.find((v) => v.id === selectedVideo) || demoData.videos[0];
-
   const switchView = (nextRole) => {
     if (nextRole === 'student') {
       setRole('student');
@@ -260,6 +305,7 @@ export default function Page() {
       setPassword('demo123');
       setSession({ role: 'student', email: 'student1@mindwell.app' });
       setMode('app');
+      setSection('my-learning');
       return;
     }
     if (nextRole === 'admin') {
@@ -268,6 +314,7 @@ export default function Page() {
       setPassword('demo123');
       setSession({ role: 'admin', email: 'school@mindwell.app' });
       setMode('app');
+      setSection('dashboard');
       return;
     }
     setRole('parent');
@@ -275,579 +322,667 @@ export default function Page() {
     setPassword('demo123');
     setSession({ role: 'parent', email: 'parent@mindwell.app' });
     setMode('app');
+    setSection('child-progress');
   };
+
+  const navItems = NAV_ITEMS[session?.role || role] || NAV_ITEMS.student;
+  const activeVideo = demoData.videos.find((video) => video.id === selectedVideo) || demoData.videos[0];
 
   return (
     <main className="shell">
       <style jsx global>{`
         :root {
-          --bg: #f7fbf9;
-          --panel: rgba(255,255,255,0.86);
-          --panelSolid: #ffffff;
-          --text: #173635;
-          --muted: #5f7776;
-          --border: rgba(17, 94, 89, 0.14);
-          --brand: #0f766e;
-          --brand2: #14b8a6;
-          --accent: #f59e0b;
-          --accent2: #fb923c;
-          --good: #22c55e;
-          --shadow: 0 18px 45px rgba(15, 118, 110, 0.12);
+          --navy: #0f1f3d;
+          --teal: #00a896;
+          --surface: #f4f6f9;
+          --text: #1a1a2e;
+          --muted: #627186;
+          --border: rgba(15, 31, 61, 0.12);
+          --shadow: 0 18px 45px rgba(15, 31, 61, 0.12);
         }
         * { box-sizing: border-box; }
-        html, body { margin: 0; padding: 0; background: radial-gradient(circle at top, #f0fffb, var(--bg) 45%, #eefaf6 100%); color: var(--text); }
+        html, body { margin: 0; padding: 0; background: var(--surface); color: var(--text); }
         body { font-family: inherit; }
         img { display: block; max-width: 100%; }
         button, input, select { font: inherit; }
-        .shell { min-height: 100vh; padding: 20px; }
+        a { color: inherit; text-decoration: none; }
+        .shell { min-height: 100vh; }
+        .pageWidth { width: min(1400px, calc(100% - 32px)); margin: 0 auto; }
+        .landing {
+          background: linear-gradient(135deg, #0f1f3d 0%, #13335d 52%, #0fa3a8 100%);
+          color: white;
+          padding: 18px 0 32px;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
         .topbar {
-          display:flex; justify-content:space-between; align-items:center; gap:16px;
-          margin-bottom:18px;
+          display:flex; align-items:center; justify-content:space-between; gap:16px;
+          padding: 0 0 18px;
         }
         .brand { display:flex; align-items:center; gap:12px; }
         .logo {
-          width:56px; height:56px; border-radius:18px;
-          background: linear-gradient(135deg, #0f766e, #14b8a6 55%, #f59e0b 130%);
-          color:white; display:grid; place-items:center; font-weight:900; letter-spacing:0.5px;
-          box-shadow: var(--shadow);
+          width:54px; height:54px; border-radius:16px; display:grid; place-items:center;
+          background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+          border:1px solid rgba(255,255,255,0.18); font-weight:900; letter-spacing:0.5px;
         }
-        .title h1 { margin:0; font-size:1.25rem; }
-        .title p { margin:4px 0 0; color:var(--muted); font-size:0.94rem; }
-        .btnRow { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+        .brand h1 { margin:0; font-size:1.1rem; }
+        .brand p { margin:3px 0 0; color: rgba(255,255,255,0.75); font-size:0.92rem; }
+        .topActions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+        .navLink {
+          padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06);
+          color: white; font-weight:700;
+        }
         .langToggle {
-          display:flex; gap:6px; padding:5px; border-radius:999px;
-          background: rgba(255,255,255,0.72); border:1px solid var(--border);
-          box-shadow: 0 8px 25px rgba(15, 118, 110, 0.06);
+          display:flex; gap:6px; padding:5px; border-radius:999px; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.14);
         }
         .langToggle button {
-          border:none; background:transparent; padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:800; color:var(--muted);
+          border:none; background:transparent; padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:800; color: rgba(255,255,255,0.8);
         }
-        .langToggle button.active { background: linear-gradient(135deg, var(--brand), var(--brand2)); color:white; }
-        .signOut {
-          border:none; background:white; color:var(--brand); border:1px solid var(--border); border-radius:16px; padding:12px 16px; font-weight:800; cursor:pointer; box-shadow: 0 10px 25px rgba(15,118,110,0.08);
+        .langToggle button.active { background: white; color: var(--navy); }
+        .heroGrid {
+          display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; align-items:stretch;
         }
-        .demoFlow {
-          position: sticky; top: 12px; z-index: 20;
-          display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
-          margin: 0 0 14px; padding: 12px 14px; border-radius: 18px;
-          background: rgba(255,255,255,0.78); backdrop-filter: blur(14px); border:1px solid var(--border);
-          box-shadow: 0 14px 30px rgba(15,118,110,0.08);
+        .heroCopy {
+          padding: 30px 0 0;
         }
-        .demoFlow span { font-weight:900; color:var(--text); }
-        .demoFlowActions { display:flex; gap:8px; flex-wrap:wrap; }
-        .flowBtn {
-          border:none; border-radius:999px; padding:10px 14px; background:#edf8f6; color:var(--brand); cursor:pointer; font-weight:900;
-        }
-        .flowBtn.active { background: linear-gradient(135deg, var(--brand), var(--brand2)); color:white; }
-        .pageGrid { display:grid; gap:16px; }
-        .loginGrid { grid-template-columns: 1.15fr 0.85fr; align-items:stretch; }
-        .heroCard {
-          position: relative; min-height: 640px; overflow:hidden;
-          border-radius: 32px; border: 1px solid rgba(255,255,255,0.55); box-shadow: var(--shadow);
-          background:
-            linear-gradient(135deg, rgba(15,118,110,0.92), rgba(20,184,166,0.78), rgba(245,158,11,0.55)),
-            url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80') center/cover;
-        }
-        .heroScrim { position:absolute; inset:0; background: linear-gradient(180deg, rgba(8,57,54,0.2), rgba(8,57,54,0.38)); }
-        .heroContent {
-          position:relative; z-index:1; padding:28px; color:white; display:flex; flex-direction:column; justify-content:space-between; min-height:640px;
-        }
-        .heroTop { max-width: 680px; }
         .eyebrow {
           display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
-          background: rgba(255,255,255,0.18); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.2);
-          font-weight:800; letter-spacing:0.2px;
+          background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.16); font-size:0.88rem; font-weight:800;
         }
-        .heroTop h2 { margin:16px 0 12px; font-size: clamp(2.3rem, 5vw, 4.7rem); line-height:0.98; letter-spacing:-0.04em; max-width: 12ch; }
-        .heroTop p { margin:0; max-width: 58ch; font-size: 1.04rem; line-height:1.75; color: rgba(255,255,255,0.9); }
-        .heroPills { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-        .heroPills span {
-          display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px;
-          background: rgba(255,255,255,0.16); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.18);
-          font-weight:700;
+        .heroCopy h2 {
+          margin:18px 0 14px; font-size: clamp(2.8rem, 4.8vw, 4.2rem); line-height:0.98; letter-spacing:-0.04em;
+          max-width: 11ch;
         }
-        .heroBottom {
-          display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
-          padding-top: 24px;
+        .heroCopy p {
+          margin:0; max-width: 60ch; color: rgba(255,255,255,0.82); line-height:1.7; font-size:1rem;
         }
-        .heroStats { display:flex; gap:12px; flex-wrap:wrap; }
-        .heroStat {
-          min-width: 130px; padding:14px 16px; border-radius:20px;
-          background: rgba(255,255,255,0.16); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.16);
+        .heroActions { display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+        .primaryBtn, .secondaryBtn, .pricingCta {
+          border:none; border-radius:14px; padding:13px 18px; cursor:pointer; font-weight:900;
         }
-        .heroStat strong { display:block; font-size:1.7rem; }
-        .heroStat span { font-size:0.92rem; color: rgba(255,255,255,0.88); }
-        .heroStory {
-          display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:10px;
-          width:min(100%, 640px);
-        }
-        .heroStoryCard {
-          padding:14px 14px 16px; border-radius:18px; backdrop-filter: blur(10px);
-          background: rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.16);
-        }
-        .heroStoryCard strong { display:block; font-size:1rem; margin-bottom:6px; }
-        .heroStoryCard span { color: rgba(255,255,255,0.9); font-size:0.9rem; line-height:1.45; }
-        .heroStoryCard.teal { box-shadow: inset 0 0 0 1px rgba(20,184,166,0.12); }
-        .heroStoryCard.amber { box-shadow: inset 0 0 0 1px rgba(245,158,11,0.12); }
-        .heroStoryCard.green { box-shadow: inset 0 0 0 1px rgba(34,197,94,0.12); }
-        .platformRibbon {
-          display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; padding: 0;
-        }
-        .platformRibbon span {
-          display:inline-flex; align-items:center; gap:6px; padding:8px 11px; border-radius:999px;
-          background: white; border:1px solid var(--border); color: var(--brand); font-weight:900; font-size:0.82rem;
-          box-shadow: 0 8px 18px rgba(15,118,110,0.05);
-        }
-        .loginCard, .panel {
-          background: var(--panel); border:1px solid var(--border); backdrop-filter: blur(14px);
-          border-radius: 28px; box-shadow: var(--shadow); overflow:hidden;
-        }
-        .loginCard { padding: 22px; display:flex; flex-direction:column; justify-content:center; }
-        .loginCard h3 { margin:0; font-size:1.75rem; }
-        .loginCard .sub { color:var(--muted); line-height:1.7; margin:10px 0 18px; }
-        .form { display:grid; gap:12px; }
-        .field { display:grid; gap:6px; }
-        label { color: var(--muted); font-size:0.9rem; font-weight:700; }
-        input, select {
-          width:100%; border:1px solid var(--border); border-radius:16px; padding:13px 14px;
-          background:white; outline:none;
-        }
-        input:focus, select:focus { border-color: rgba(20,184,166,0.75); box-shadow: 0 0 0 4px rgba(20,184,166,0.12); }
         .primaryBtn {
-          margin-top:4px; border:none; padding:14px 18px; border-radius:16px; cursor:pointer; font-weight:900; color:white;
-          background: linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow: 0 14px 28px rgba(15,118,110,0.22);
+          color: white; background: linear-gradient(135deg, var(--teal), #21c5af); box-shadow: 0 16px 28px rgba(0,168,150,0.26);
         }
-        .demoBox {
-          margin-top:14px; padding:14px; border-radius:18px; background: rgba(255,255,255,0.78); border:1px dashed rgba(15,118,110,0.2);
-          color: var(--text); line-height:1.45;
+        .primaryBtn.compact { padding: 11px 14px; }
+        .secondaryBtn { background: white; color: var(--navy); }
+        .heroPills { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+        .heroPills span {
+          display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:999px;
+          background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.88); font-size:0.92rem;
         }
-        .appGrid { grid-template-columns: 1.2fr 0.8fr; align-items:start; }
-        .panel { padding: 18px; }
-        .dashHeader {
-          display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:16px;
+        .heroMock {
+          position:relative; min-height: 460px; border-radius: 28px; overflow:hidden;
+          border:1px solid rgba(255,255,255,0.12); box-shadow: var(--shadow);
+          background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
         }
-        .dashHeader h3 { margin:0; font-size:1.4rem; }
-        .dashHeader p { margin:6px 0 0; color:var(--muted); }
-        .sectionTitle { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; }
-        .sectionTitle h4 { margin:0; font-size:1.05rem; }
-        .sectionTitle span { color:var(--muted); font-size:0.92rem; }
-        .avatarRow { display:flex; align-items:center; gap:12px; }
-        .avatar {
-          width:52px; height:52px; border-radius:50%; border:3px solid rgba(255,255,255,0.9); box-shadow: 0 10px 25px rgba(15,118,110,0.18); background:white;
+        .heroMockInner {
+          position:absolute; inset: 18px; border-radius: 22px; background: rgba(244,246,249,0.98); color: var(--text); overflow:hidden;
+          display:grid; grid-template-columns: 220px 1fr; box-shadow: inset 0 0 0 1px rgba(15,31,61,0.05);
         }
-        .studentHero, .parentHero {
-          border-radius: 26px; overflow:hidden; background: linear-gradient(135deg, rgba(15,118,110,0.1), rgba(20,184,166,0.08), rgba(245,158,11,0.08));
-          border:1px solid var(--border); padding:18px; margin-bottom:16px;
+        .mockSidebar {
+          background: linear-gradient(180deg, #101f3f, #11284d); color:white; padding:18px; display:flex; flex-direction:column; gap:14px;
         }
-        .studentHeroTop { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }
-        .greeting { font-size: clamp(1.45rem, 2.4vw, 2.1rem); font-weight:900; margin:0; }
-        .greetingSub { color:var(--muted); margin:8px 0 0; line-height:1.6; }
-        .chipRow { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-        .chip {
-          display:inline-flex; align-items:center; gap:6px; padding:8px 11px; border-radius:999px; background:white; border:1px solid var(--border);
-          font-size:0.88rem; font-weight:800;
+        .mockSidebar .sectionTitle { color: rgba(255,255,255,0.72); font-size:0.82rem; text-transform:uppercase; letter-spacing:0.08em; }
+        .mockNav { display:grid; gap:8px; }
+        .mockNav span {
+          padding:10px 12px; border-radius:12px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.08);
+          color:white; font-size:0.92rem;
         }
-        .studentHeroArt {
-          width: 164px; flex: 0 0 164px; min-height: 140px; border-radius: 22px; overflow:hidden; position:relative; background: white; border: 1px solid var(--border);
+        .mockMain { padding:18px; display:grid; gap:12px; }
+        .mockStatGrid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:10px; }
+        .mockStat { background:white; border-radius:18px; border:1px solid var(--border); padding:12px; }
+        .mockStat strong { display:block; font-size:1.45rem; color: var(--navy); }
+        .mockCard {
+          background:white; border-radius:18px; border:1px solid var(--border); padding:14px; display:grid; gap:10px;
         }
-        .studentHeroArt img { width:100%; height:100%; object-fit:cover; }
-        .studentHeroArt::after {
-          content: ''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(8,57,54,0.22));
+        .mockLine { height:10px; border-radius:999px; background: linear-gradient(90deg, rgba(15,31,61,0.08), rgba(0,168,150,0.18)); }
+        .mockLine.short { width: 64%; }
+        .mockLine.med { width: 82%; }
+        .mockLine.long { width: 100%; }
+        .mockVideo {
+          display:grid; grid-template-columns: 120px 1fr; gap:12px; align-items:start;
         }
-        .statGrid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px; margin-bottom:14px; }
+        .mockThumb {
+          height: 74px; border-radius:14px; background: linear-gradient(135deg, rgba(15,31,61,0.9), rgba(0,168,150,0.8));
+        }
+        .heroCreds {
+          margin-top: 18px;
+          display:flex; gap:10px; flex-wrap:wrap;
+        }
+        .heroCreds .chip {
+          padding:10px 12px; border-radius:999px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+        }
+        .appShell { padding: 18px 0 28px; }
+        .appLayout { display:grid; grid-template-columns: 260px minmax(0,1fr); gap: 18px; align-items:start; }
+        .sidebar {
+          position: sticky; top: 16px; background: white; border:1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow);
+          padding: 16px;
+        }
+        .sidebarHead { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:14px; }
+        .sidebarHead strong { display:block; }
+        .sidebarHead span { color: var(--muted); font-size:0.88rem; }
+        .sidebarNav { display:grid; gap:8px; margin-top: 10px; }
+        .sidebarNav button {
+          width:100%; text-align:left; border:none; background:transparent; border-radius:14px; padding:12px 12px; cursor:pointer; font-weight:800; color: var(--navy);
+        }
+        .sidebarNav button.active { background: linear-gradient(135deg, rgba(0,168,150,0.12), rgba(15,31,61,0.06)); }
+        .sidebarFooter { margin-top:14px; padding-top:14px; border-top:1px solid var(--border); display:grid; gap:10px; }
+        .profileChip { display:flex; align-items:center; gap:10px; padding:10px; background: #f8fafc; border-radius:16px; }
+        .profileChip img { width:40px; height:40px; border-radius:50%; }
+        .workspace {
+          display:grid; gap: 16px;
+        }
+        .workspaceTop {
+          display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
+        }
+        .workspaceTop h3 { margin:0; font-size: 1.55rem; }
+        .workspaceTop p { margin:6px 0 0; color: var(--muted); }
+        .sectionBand {
+          display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+          padding: 12px 14px; border-radius: 18px; background: white; border:1px solid var(--border);
+        }
+        .sectionBand span {
+          padding:8px 10px; border-radius:999px; background:#eef3f8; color:var(--navy); font-size:0.85rem; font-weight:800;
+        }
+        .statGrid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
         .statCard {
-          padding:14px; border-radius:20px; color:white; display:flex; align-items:center; gap:12px; min-height:92px;
-          box-shadow: 0 18px 30px rgba(15,118,110,0.15);
+          padding:16px; border-radius:20px; color:white; border:1px solid rgba(255,255,255,0.08); box-shadow: 0 16px 30px rgba(15,31,61,0.12);
         }
-        .statCard.teal { background: linear-gradient(135deg, #0f766e, #14b8a6); }
-        .statCard.amber { background: linear-gradient(135deg, #d97706, #f59e0b); }
-        .statCard.green { background: linear-gradient(135deg, #15803d, #22c55e); }
-        .statIcon {
-          width:42px; height:42px; border-radius:14px; background: rgba(255,255,255,0.18); display:grid; place-items:center; font-size:1.2rem;
+        .statCard.dark { background: linear-gradient(180deg, #121f3a, #0f172a); }
+        .statCard .statTop { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+        .statCard .statIcon {
+          width:42px; height:42px; border-radius:14px; display:grid; place-items:center;
+          background: rgba(255,255,255,0.08); font-size:1.1rem;
         }
-        .statLabel { font-size:0.85rem; opacity:0.9; }
-        .statValue { font-size:1.75rem; font-weight:900; line-height:1.1; margin-top:4px; }
-        .donutWrap { display:flex; justify-content:center; align-items:center; padding:10px 0 18px; }
-        .donut {
-          width:132px; height:132px; border-radius:50%; display:grid; place-items:center; position:relative;
-          box-shadow: inset 0 0 0 1px rgba(15,118,110,0.08);
+        .statTrend { font-size:0.84rem; color: rgba(255,255,255,0.72); }
+        .statLabel { margin-top:12px; font-size:0.88rem; color: rgba(255,255,255,0.78); }
+        .statValue { font-size:2rem; font-weight:900; margin-top:6px; }
+        .panel {
+          background: white; border:1px solid var(--border); border-radius:22px; box-shadow: var(--shadow); padding: 18px;
         }
-        .donutInner {
-          width:92px; height:92px; border-radius:50%; background:white; display:grid; place-items:center; text-align:center;
-          box-shadow: inset 0 0 0 1px rgba(15,118,110,0.08);
+        .panelHead { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; }
+        .panelHead h4 { margin:0; font-size:1.08rem; }
+        .panelHead span { color: var(--muted); font-size:0.9rem; }
+        .studentHero {
+          display:flex; justify-content:space-between; gap:18px; align-items:center;
+          background: linear-gradient(135deg, #0f1f3d, #12315a 60%, rgba(0,168,150,0.9));
+          color:white; border-radius:22px; padding:18px; overflow:hidden;
         }
-        .donutInner strong { font-size:1.4rem; display:block; }
-        .donutInner span { font-size:0.78rem; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:0.08em; }
-        .videoList { display:grid; gap:14px; }
+        .studentHero strong { display:block; font-size: clamp(1.6rem, 2.8vw, 2.2rem); }
+        .studentHero p { margin:10px 0 0; color: rgba(255,255,255,0.82); max-width: 55ch; line-height:1.7; }
+        .heroMeta { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+        .heroMeta span { padding:8px 10px; border-radius:999px; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12); }
+        .heroAvatar { width: 92px; height: 92px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.18); }
+        .heroThumbnail {
+          width: 190px; min-height: 140px; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.14);
+        }
+        .heroThumbnail img { width:100%; height:100%; object-fit:cover; }
+        .videoGrid { display:grid; gap:14px; }
         .videoCard {
-          overflow:hidden; border-radius:22px; background:white; border:1px solid var(--border); box-shadow: 0 10px 26px rgba(15,118,110,0.08);
+          background: white; border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow: 0 12px 28px rgba(15,31,61,0.08);
         }
-        .videoMedia { position:relative; height:170px; }
-        .thumbWrap { position:relative; width:100%; height:100%; }
-        .thumbImage { width:100%; height:100%; object-fit:cover; }
-        .thumbOverlay { position:absolute; inset:0; }
-        .thumbOverlay.stress { background: linear-gradient(180deg, rgba(10,40,74,0.05), rgba(15,118,110,0.28)); }
-        .thumbOverlay.mindfulness { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(20,184,166,0.22)); }
-        .thumbOverlay.resilience { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(245,158,11,0.22)); }
-        .videoBody { padding: 14px; }
+        .videoCard.selected { outline: 2px solid rgba(0,168,150,0.32); }
+        .videoMedia { position:relative; aspect-ratio: 16 / 9; }
+        .videoThumb { width:100%; height:100%; object-fit:cover; }
+        .durationBadge {
+          position:absolute; top:12px; right:12px; padding:7px 9px; border-radius:999px; color:white; font-size:0.78rem; font-weight:800;
+          background: rgba(15,31,61,0.88); backdrop-filter: blur(8px);
+        }
+        .videoBody { padding:14px; }
         .videoHead { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
         .videoHead h5 { margin:0 0 6px; font-size:1.05rem; }
-        .videoHead p { margin:0; color:var(--muted); font-size:0.92rem; }
-        .videoTag { display:inline-flex; padding:7px 10px; border-radius:999px; background:#ecfdf5; color:#047857; font-size:0.82rem; font-weight:900; }
+        .videoHead p { margin:0; color:var(--muted); line-height:1.5; font-size:0.92rem; }
+        .statusPill {
+          display:inline-flex; padding:8px 10px; border-radius:999px; background:#edf7f5; color:#07685b; font-size:0.8rem; font-weight:900;
+          white-space:nowrap;
+        }
         .progressBar {
-          height:12px; border-radius:999px; background:#e4f2ef; overflow:hidden; margin:12px 0;
-          box-shadow: inset 0 0 0 1px rgba(15,118,110,0.06);
+          height:10px; border-radius:999px; background:#e6ecf4; overflow:hidden; margin:12px 0 14px;
         }
-        .progressFill { height:100%; border-radius:inherit; background: linear-gradient(90deg, var(--brand), var(--brand2), #22c55e); }
-        .btnGroup { display:flex; gap:10px; flex-wrap:wrap; }
-        .ghostBtn {
-          border:none; background:#f7fffd; border:1px solid var(--border); color:var(--brand); border-radius:14px; padding:11px 14px; cursor:pointer; font-weight:900;
+        .progressFill { height:100%; border-radius:inherit; background: linear-gradient(90deg, #0f1f3d, #00a896); }
+        .btnRow { display:flex; gap:10px; flex-wrap:wrap; }
+        .secondaryBtn {
+          border:1px solid var(--border); background: #f8fafc; color: var(--navy); padding:12px 16px; border-radius:14px; cursor:pointer; font-weight:900;
         }
-        .completionBarWrap { display:flex; align-items:center; gap:12px; }
-        .studentList { display:grid; gap:10px; }
+        .compact { padding:12px 16px; }
+        .tableList { display:grid; gap:10px; }
         .studentRow {
-          display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 14px;
-          border:1px solid var(--border); border-radius:18px; background:white;
+          display:flex; justify-content:space-between; gap:12px; align-items:center;
+          padding:12px 14px; border-radius:16px; border:1px solid var(--border); background:#fff;
         }
-        .studentRowLeft { display:flex; align-items:center; gap:12px; }
+        .studentLeft { display:flex; align-items:center; gap:12px; }
+        .studentAvatar { width:44px; height:44px; border-radius:50%; border:1px solid var(--border); }
         .studentRow h5 { margin:0; font-size:1rem; }
         .studentRow p { margin:3px 0 0; color:var(--muted); font-size:0.88rem; }
-        .miniStat { text-align:right; font-weight:900; }
-        .miniStat span { display:block; color:var(--muted); font-weight:700; font-size:0.84rem; }
-        .parentGrid { display:grid; gap:12px; }
-        .parentNote {
-          padding:14px 16px; border-radius:18px; background:#effaf8; border:1px solid rgba(15,118,110,0.12); color:#175754; font-weight:700;
-        }
-        .resourceGrid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+        .studentStat { text-align:right; font-weight:900; }
+        .studentStat span { display:block; color:var(--muted); font-weight:700; font-size:0.82rem; }
+        .childGrid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .resourceCard {
-          background:white; border:1px solid var(--border); border-radius:18px; padding:14px; box-shadow: 0 8px 22px rgba(15,118,110,0.06);
+          background:#fff; border:1px solid var(--border); border-radius:18px; padding:14px;
         }
         .resourceCard strong { display:block; margin-bottom:6px; }
-        .mobileTabs { display:none; }
-        @media (max-width: 980px) {
-          .loginGrid, .appGrid { grid-template-columns: 1fr; }
-          .heroCard { min-height: 520px; }
-          .heroContent { min-height: 520px; }
-          .statGrid { grid-template-columns: 1fr; }
-          .heroStory { grid-template-columns: 1fr; width:100%; }
+        .pricingSection {
+          padding: 44px 0 60px;
+          background: white;
+          border-top: 1px solid var(--border);
         }
-        @media (max-width: 640px) {
-          .shell { padding: 14px; }
+        .pricingHead { display:flex; justify-content:space-between; gap:12px; align-items:flex-end; margin-bottom:20px; }
+        .pricingHead h2 { margin:0; font-size: clamp(2rem, 3.8vw, 3rem); }
+        .pricingHead p { margin:6px 0 0; color:var(--muted); max-width: 56ch; line-height:1.7; }
+        .pricingGrid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+        .pricingCard {
+          position:relative; background: #fff; border:1px solid var(--border); border-radius: 22px; padding: 20px; box-shadow: var(--shadow);
+        }
+        .pricingCard.popular { border-color: rgba(0,168,150,0.4); transform: translateY(-6px); }
+        .popularBadge {
+          position:absolute; top:16px; right:16px; padding:8px 10px; border-radius:999px; background: rgba(0,168,150,0.1); color: var(--teal); font-weight:900; font-size:0.8rem;
+        }
+        .pricingCard h3 { margin:0; font-size:1.2rem; }
+        .pricingValue { font-size:2.1rem; font-weight:900; color: var(--navy); margin: 12px 0 6px; }
+        .pricingCard p { margin:0 0 14px; color:var(--muted); line-height:1.7; }
+        .pricingCard ul { margin:0 0 18px; padding-left:18px; color:var(--text); line-height:1.9; }
+        .pricingCard li { margin-bottom:6px; }
+        .pricingCta { width:100%; }
+        .demoToggle { margin-top: 14px; }
+        .demoToggle details {
+          background: rgba(15,31,61,0.05); border:1px solid rgba(15,31,61,0.1); border-radius:16px; padding: 12px 14px;
+        }
+        .demoToggle summary { cursor:pointer; font-weight:900; color: var(--navy); }
+        .demoAccess { margin-top:10px; color: var(--muted); line-height:1.7; }
+        .hiddenMeta { display:none; }
+        .mobileOnly { display:none; }
+        .loginGrid { display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; align-items:stretch; }
+        .loginFormWrap {
+          background: white; color: var(--text); border-radius: 22px; box-shadow: var(--shadow); border:1px solid rgba(255,255,255,0.18);
+          padding: 20px;
+        }
+        .loginFormWrap h3 { margin:0; font-size:1.35rem; color: var(--navy); }
+        .loginFormWrap .sub { color: var(--muted); margin: 8px 0 16px; line-height:1.7; }
+        .field { display:grid; gap:6px; margin-bottom: 12px; }
+        label { color: var(--muted); font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; }
+        input, select {
+          width:100%; border:1px solid var(--border); border-radius:14px; padding: 13px 14px; background:#fff; outline:none;
+        }
+        input:focus, select:focus { border-color: rgba(0,168,150,0.75); box-shadow: 0 0 0 4px rgba(0,168,150,0.12); }
+        .dashboardLayout { padding: 18px 0 30px; }
+        .loginShell {
+          padding: 22px 0 44px;
+          background: linear-gradient(180deg, #0f1f3d 0%, #13294b 55%, #eef3f8 55%, #eef3f8 100%);
+        }
+        .loginIntro { padding-top: 8px; }
+        .loginIntro .tag { display:inline-flex; align-items:center; gap:8px; padding: 8px 12px; border-radius:999px; background: rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.12); }
+        .loginIntro .chipRow { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+        .loginIntro .chipRow span { padding:9px 12px; border-radius:999px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.88); }
+        .demoBadge { display:inline-flex; }
+        .contentWrap { display:grid; gap: 16px; }
+        @media (max-width: 1100px) {
+          .heroGrid, .loginGrid, .appLayout, .pricingGrid { grid-template-columns: 1fr; }
+          .heroMockInner { grid-template-columns: 1fr; }
+          .sidebar { position: static; }
+        }
+        @media (max-width: 720px) {
+          .pageWidth { width: calc(100% - 22px); }
           .topbar { align-items:flex-start; flex-direction:column; }
-          .studentHeroTop { flex-direction:column; }
-          .studentHeroArt { width:100%; flex:none; }
-          .resourceGrid { grid-template-columns:1fr; }
-          .mobileTabs { display:flex; gap:8px; }
-          .mobileTab {
-            flex:1; border:none; background:white; border:1px solid var(--border); padding:10px 12px; border-radius:14px; font-weight:900;
-          }
-          .mobileTab.active { background: linear-gradient(135deg, var(--brand), var(--brand2)); color:white; }
+          .statGrid, .mockStatGrid, .childGrid { grid-template-columns: 1fr; }
+          .studentHero { flex-direction:column; align-items:flex-start; }
+          .heroThumbnail { width:100%; }
+          .pricingHead { align-items:flex-start; flex-direction:column; }
+          .mobileOnly { display:block; }
+          .sidebarNav { grid-template-columns: repeat(2, minmax(0,1fr)); }
+          .sidebarNav button { background:#f7f9fc; }
         }
       `}</style>
 
-      <div className="topbar">
-        <div className="brand">
-          <div className="logo">MW</div>
-          <div className="title">
-            <h1>{t.appName}</h1>
-            <p>{t.tagline}</p>
+      <section className="landing">
+        <div className="pageWidth">
+          <div className="topbar">
+            <div className="brand">
+              <div className="logo">MW</div>
+              <div>
+                <h1>{t.appName}</h1>
+                <p>{t.tagline}</p>
+              </div>
+            </div>
+            <div className="topActions">
+              <Link className="navLink" href="/pricing">{t.pricing}</Link>
+              <div className="langToggle" aria-label="language toggle">
+                <button className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</button>
+                <button className={lang === 'hi' ? 'active' : ''} onClick={() => setLang('hi')}>हि</button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="btnRow">
-          <div className="langToggle" aria-label="language toggle">
-            <button className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</button>
-            <button className={lang === 'hi' ? 'active' : ''} onClick={() => setLang('hi')}>हि</button>
-          </div>
-          {session && <button className="signOut" onClick={logout}>{t.signOut}</button>}
-        </div>
-      </div>
 
-      {mode === 'app' && session && (
-        <div className="demoFlow">
-          <span>Demo flow: {session.role}</span>
-          <div className="demoFlowActions">
-            <button className={`flowBtn ${session.role === 'student' ? 'active' : ''}`} onClick={() => switchView('student')}>Student</button>
-            <button className={`flowBtn ${session.role === 'admin' ? 'active' : ''}`} onClick={() => switchView('admin')}>Admin</button>
-            <button className={`flowBtn ${session.role === 'parent' ? 'active' : ''}`} onClick={() => switchView('parent')}>Parent</button>
+          <div className="heroGrid">
+            <div className="heroCopy loginIntro">
+              <span className="eyebrow">Enterprise-ready wellbeing for Indian schools</span>
+              <h2>{t.loginTitle}</h2>
+              <p>{t.loginSub}</p>
+              <div className="heroActions">
+                <button className="primaryBtn" onClick={() => setMode('login')}>{t.startToday}</button>
+                <Link className="secondaryBtn" href="/pricing">See pricing</Link>
+              </div>
+              <div className="heroPills">
+                <span>Student learning</span>
+                <span>Parent visibility</span>
+                <span>School analytics</span>
+                <span>Role-based access</span>
+              </div>
+              <div className="heroCreds">
+                <span className="chip">Trusted for multi-school rollouts</span>
+                <span className="chip">Clear reporting and hierarchy</span>
+              </div>
+            </div>
+
+            <div className="heroMock" aria-label="MindWell product preview">
+              <div className="heroMockInner">
+                <div className="mockSidebar">
+                  <div>
+                    <div className="sectionTitle">School navigation</div>
+                    <div className="mockNav">
+                      <span>Dashboard</span>
+                      <span>Students</span>
+                      <span>Reports</span>
+                      <span>Curriculum</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="sectionTitle">Current rollout</div>
+                    <div className="mockCard" style={{ background: 'rgba(255,255,255,0.08)', color: 'white', borderColor: 'rgba(255,255,255,0.08)' }}>
+                      <strong>MindWell</strong>
+                      <div className="mockLine long" />
+                      <div className="mockLine med" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mockMain">
+                  <div className="mockStatGrid">
+                    <div className="mockStat"><strong>1,200</strong><span>Students</span></div>
+                    <div className="mockStat"><strong>84%</strong><span>Completion</span></div>
+                    <div className="mockStat"><strong>↑12%</strong><span>This week</span></div>
+                  </div>
+                  <div className="mockCard">
+                    <div className="mockVideo">
+                      <div className="mockThumb" />
+                      <div>
+                        <div className="mockLine long" />
+                        <div className="mockLine med" style={{ marginTop: 10 }} />
+                        <div className="mockLine short" style={{ marginTop: 10 }} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mockCard">
+                    <div className="mockLine long" />
+                    <div className="mockLine med" style={{ marginTop: 10 }} />
+                    <div className="mockLine short" style={{ marginTop: 10 }} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </section>
 
       {mode === 'login' ? (
-        <section className="pageGrid loginGrid">
-          <div className="heroCard">
-            <div className="heroScrim" />
-            <div className="heroContent">
-              <div className="heroTop">
-                <div className="eyebrow">Hackathon MVP · Indian K-12 wellbeing</div>
-                <h2>{t.loginTitle}</h2>
-                <p>{t.tagline} {t.loginSub}</p>
-                <div className="heroPills">
-                  <span>✨ Student learning</span>
-                  <span>🛡️ Parent trust</span>
-                  <span>📊 School analytics</span>
-                  <span>📱 Mobile-first PWA</span>
-                </div>
-              </div>
-              <div className="heroBottom">
-                <div className="heroStats">
-                  <div className="heroStat"><strong>3</strong><span>Wellbeing paths</span></div>
-                  <div className="heroStat"><strong>5</strong><span>Demo learners</span></div>
-                  <div className="heroStat"><strong>1</strong><span>School network</span></div>
-                </div>
-                <div className="heroStory">
-                  <div className="heroStoryCard teal">
-                    <strong>Students</strong>
-                    <span>Guided learning with progress and badges</span>
+        <section className="loginShell">
+          <div className="pageWidth loginGrid">
+            <div className="panel" style={{ background: 'transparent', border: 'none', boxShadow: 'none', padding: 0 }}>
+              <div className="contentWrap">
+                <div className="panel" style={{ background: 'white' }}>
+                  <div className="panelHead">
+                    <h4>{t.loginTitle}</h4>
+                    <span>{t.enterprise}</span>
                   </div>
-                  <div className="heroStoryCard amber">
-                    <strong>Parents</strong>
-                    <span>Privacy-safe milestones and support notes</span>
+                  <div className="loginFormWrap" style={{ boxShadow: 'none', border: 'none', padding: 0 }}>
+                    <div className="form">
+                      <div className="field">
+                        <label>{t.role}</label>
+                        <select value={role} onChange={(e) => setRole(e.target.value)}>
+                          <option value="student">{t.student}</option>
+                          <option value="admin">{t.admin}</option>
+                          <option value="parent">{t.parent}</option>
+                        </select>
+                      </div>
+                      <div className="field">
+                        <label>{t.email}</label>
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} />
+                      </div>
+                      <div className="field">
+                        <label>{t.password}</label>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                      </div>
+                      <button className="primaryBtn" onClick={login}>{t.signIn}</button>
+                    </div>
                   </div>
-                  <div className="heroStoryCard green">
-                    <strong>Schools</strong>
-                    <span>Enterprise-ready rollouts and analytics</span>
+                  <div className="demoToggle">
+                    <details>
+                      <summary>{t.demoCreds}</summary>
+                      <div className="demoAccess">
+                        <strong>{t.schoolId}:</strong> SCH-101<br />
+                        <strong>Admin:</strong> school@mindwell.app / demo123<br />
+                        <strong>Student:</strong> student1@mindwell.app / demo123<br />
+                        <strong>Parent:</strong> parent@mindwell.app / demo123
+                      </div>
+                    </details>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="loginCard">
-            <h3>{t.loginTitle}</h3>
-            <div className="sub">{t.loginSub}</div>
-            <div className="form">
-              <div className="field">
-                <label>{t.role}</label>
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value="student">{t.student}</option>
-                  <option value="admin">{t.admin}</option>
-                  <option value="parent">{t.parent}</option>
-                </select>
+            <div className="panel">
+              <div className="panelHead">
+                <h4>Why schools choose MindWell</h4>
+                <span>Clear, trustworthy, scalable</span>
               </div>
-              <div className="field">
-                <label>{t.email}</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)} />
+              <div className="childGrid">
+                <div className="resourceCard"><strong>Students</strong>Engaging video learning with progress, badges, and quick wins.</div>
+                <div className="resourceCard"><strong>Parents</strong>Privacy-safe milestones and supportive guidance.</div>
+                <div className="resourceCard"><strong>Schools</strong>Class-wise reporting and role-based access.</div>
+                <div className="resourceCard"><strong>Enterprise</strong>Built to scale across multiple schools and campuses.</div>
               </div>
-              <div className="field">
-                <label>{t.password}</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              </div>
-              <button className="primaryBtn" onClick={login}>{t.signIn}</button>
-            </div>
-            <div className="demoBox">
-              <strong>{t.demoCreds}</strong><br />
-              <strong>{t.schoolId}:</strong> SCH-101<br />
-              <strong>Admin:</strong> school@mindwell.app / demo123<br />
-              <strong>Student:</strong> student1@mindwell.app / demo123<br />
-              <strong>Parent:</strong> parent@mindwell.app / demo123
             </div>
           </div>
         </section>
       ) : (
-        <section className="pageGrid appGrid">
-          <div className="panel">
-            <div className="dashHeader">
-              <div>
-                <h3>{session.role === 'admin' ? t.adminDashboard : session.role === 'parent' ? t.parentDashboard : t.studentDashboard}</h3>
-                <p>{state.school.name}</p>
-              </div>
-              {session.role === 'student' && currentUser && (
-                <div className="avatarRow">
-                  <img className="avatar" src={`${AVATAR_STYLE}${encodeURIComponent(currentUser.name)}`} alt={currentUser.name} />
-                  <div>
-                    <strong>{lang === 'hi' ? `नमस्ते, ${currentUser.name} 👋` : `Namaste, ${currentUser.name} 👋`}</strong>
-                    <div style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>{currentUser.className} · {currentUser.grade}th grade</div>
-                  </div>
+        <section className="appShell">
+          <div className="pageWidth appLayout">
+            <aside className="sidebar">
+              <div className="sidebarHead">
+                <div>
+                  <strong>{state.school.name}</strong>
+                  <span>{t.enterprise}</span>
                 </div>
-              )}
-            </div>
-
-            <div className="platformRibbon">
-              <span>Enterprise-ready</span>
-              <span>Role-based access</span>
-              <span>School-safe analytics</span>
-              <span>Mobile-first PWA</span>
-            </div>
-
-            {session.role === 'student' && currentUser && (
-              <>
-                <div className="studentHero">
-                  <div className="studentHeroTop">
+                {currentUser && <img className="studentAvatar" src={`${AVATAR_STYLE}${encodeURIComponent(currentUser.name)}`} alt={currentUser.name} />}
+              </div>
+              <div>
+                <div style={{ color: 'var(--muted)', fontSize: '0.82rem', fontWeight: 900, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t.switchView}</div>
+                <div className="heroActions" style={{ marginTop: 10 }}>
+                  <button className={`secondaryBtn ${session.role === 'student' ? 'active' : ''}`} onClick={() => switchView('student')}>{t.student}</button>
+                  <button className={`secondaryBtn ${session.role === 'admin' ? 'active' : ''}`} onClick={() => switchView('admin')}>{t.admin}</button>
+                  <button className={`secondaryBtn ${session.role === 'parent' ? 'active' : ''}`} onClick={() => switchView('parent')}>{t.parent}</button>
+                </div>
+              </div>
+              <nav className="sidebarNav">
+                {navItems.map((item) => (
+                  <button key={item.id} className={section === item.id ? 'active' : ''} onClick={() => setSection(item.id)}>
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+              <div className="sidebarFooter">
+                <button className="secondaryBtn" onClick={logout}>{t.signOut}</button>
+                {currentUser && (
+                  <div className="profileChip">
+                    <img src={`${AVATAR_STYLE}${encodeURIComponent(currentUser.name)}`} alt={currentUser.name} />
                     <div>
-                      <h4 className="greeting">{lang === 'hi' ? `नमस्ते, ${currentUser.name} 👋` : `Namaste, ${currentUser.name} 👋`}</h4>
-                      <p className="greetingSub">{lang === 'hi' ? 'आज के wellbeing lessons छोटे, सरल और fun हैं.' : 'Today’s wellbeing lessons are short, simple, and motivating.'}</p>
-                      <div className="chipRow">
-                        <span className="chip">⭐ 3 day streak</span>
-                        <span className="chip">🏅 Mindful learner</span>
-                        <span className="chip">📘 Grade {currentUser.grade}</span>
+                      <strong>{currentUser.name}</strong>
+                      <div style={{ color: 'var(--muted)', fontSize: '0.86rem' }}>{currentUser.className} · {currentUser.grade}th grade</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </aside>
+
+            <div className="workspace">
+              <div className="workspaceTop">
+                <div>
+                  <h3>{session.role === 'admin' ? t.adminDashboard : session.role === 'parent' ? t.parentDashboard : t.studentDashboard}</h3>
+                  <p>{state.school.name}</p>
+                </div>
+                <div className="sectionBand">
+                  <span>{t.student}</span>
+                  <span>{t.parent}</span>
+                  <span>{t.admin}</span>
+                </div>
+              </div>
+
+              {session.role === 'admin' && (
+                <>
+                  <div className="statGrid">
+                    <StatCard tone="dark" icon="👥" label={t.enrolled} value={adminStats.totalStudents} trend="↑ 12% this week" />
+                    <StatCard tone="dark" icon="▶" label={t.watchedVideos} value={adminStats.totalWatched} trend="↑ 8% this week" />
+                    <StatCard tone="dark" icon="◔" label={t.completion} value={`${adminStats.completion}%`} trend="↑ 5% this week" />
+                  </div>
+
+                  <div className="panel">
+                    <div className="panelHead">
+                      <h4>Student progress</h4>
+                      <span>Class-wise overview</span>
+                    </div>
+                    <div className="tableList">
+                      {demoData.students.map((student) => {
+                        const done = Object.values(state.videoProgress[student.id] || {}).filter(Boolean).length;
+                        const pct = percentFromProgress(state.videoProgress[student.id]);
+                        return (
+                          <div className="studentRow" key={student.id}>
+                            <div className="studentLeft">
+                              <img className="studentAvatar" src={`${AVATAR_STYLE}${encodeURIComponent(student.name)}`} alt={student.name} />
+                              <div>
+                                <h5>{student.name}</h5>
+                                <p>{student.className} · {student.id}</p>
+                              </div>
+                            </div>
+                            <div className="studentStat">{pct}%<span>{done}/3 watched</span></div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {session.role === 'student' && currentUser && (
+                <>
+                  <div className="studentHero">
+                    <div>
+                      <strong>{lang === 'hi' ? `नमस्ते, ${currentUser.name} 👋` : `Namaste, ${currentUser.name} 👋`}</strong>
+                      <p>{lang === 'hi' ? 'आज के wellbeing lessons छोटे, सरल और motivating हैं.' : 'Today’s wellbeing lessons are short, clear, and motivating.'}</p>
+                      <div className="heroMeta">
+                        <span>3 day streak</span>
+                        <span>Mindful learner</span>
+                        <span>{currentUser.className}</span>
                       </div>
                     </div>
-                    <div className="studentHeroArt">
+                    <div className="heroThumbnail">
                       <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80" alt="students" />
                     </div>
                   </div>
-                </div>
 
-                <div className="statGrid">
-                  <StatCard tone="teal" icon="👥" label={t.enrolled} value={adminStats.totalStudents} />
-                  <StatCard tone="amber" icon="▶" label={t.watchedVideos} value={completedCount} />
-                  <StatCard tone="green" icon="🌱" label={t.completion} value={`${progressPercent}%`} />
-                </div>
-
-                <div className="sectionTitle">
-                  <h4>{t.videos}</h4>
-                  <span>{t.progressLabel}</span>
-                </div>
-
-                <div className="videoList">
-                  {demoData.videos.map((video) => {
-                    const done = !!progressMap[video.id];
-                    const pct = done ? 100 : 22;
-                    return (
-                      <article className="videoCard" key={video.id}>
-                        <div className="videoMedia">
-                          <TopicThumb topic={video.topic} image={video.image} title={video.title[lang]} />
-                        </div>
-                        <div className="videoBody">
-                          <div className="videoHead">
-                            <div>
-                              <h5>{video.title[lang]}</h5>
-                              <p>{video.duration} · {done ? t.completed : 'New lesson'}</p>
-                            </div>
-                            <span className="videoTag">{done ? t.completed : 'Start'}</span>
-                          </div>
-                          <div className="progressBar"><div className="progressFill" style={{ width: `${pct}%` }} /></div>
-                          <div className="btnGroup">
-                            <button className="ghostBtn" onClick={() => setSelectedVideo(video.id)}>▶ Play</button>
-                            <button className="primaryBtn" onClick={() => markComplete(video.id)}>{t.markComplete}</button>
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </>
-            )}
-
-            {session.role === 'admin' && (
-              <>
-                <div className="studentHero">
-                  <div className="studentHeroTop">
-                    <div>
-                      <h4 className="greeting">MindWell school overview</h4>
-                      <p className="greetingSub">Warm, readable analytics for principals and coordinators — no clutter, just the numbers that matter.</p>
-                    </div>
-                    <Donut value={adminStats.completion} />
+                  <div className="statGrid">
+                    <StatCard tone="dark" icon="📘" label="Learning paths" value="3" trend="↑ 12% this week" />
+                    <StatCard tone="dark" icon="🏅" label={t.achievements || 'Achievements'} value={completedCount} trend="↑ 1 badge earned" />
+                    <StatCard tone="dark" icon="🌱" label={t.completion} value={`${progressPercent}%`} trend="↑ 9% this week" />
                   </div>
-                </div>
 
-                <div className="statGrid">
-                  <StatCard tone="teal" icon="👥" label={t.enrolled} value={adminStats.totalStudents} />
-                  <StatCard tone="amber" icon="▶" label={t.watchedVideos} value={adminStats.totalWatched} />
-                  <StatCard tone="green" icon="◔" label={t.completion} value={`${adminStats.completion}%`} />
-                </div>
+                  <div className="panel">
+                    <div className="panelHead">
+                      <h4>{t.videos}</h4>
+                      <span>{t.myLearning}</span>
+                    </div>
+                    <div className="videoGrid">
+                      {demoData.videos.map((video) => {
+                        const done = !!progressMap[video.id];
+                        return (
+                          <VideoCard
+                            key={video.id}
+                            video={video}
+                            lang={lang}
+                            done={done}
+                            selected={selectedVideo === video.id}
+                            onPlay={() => setSelectedVideo(video.id)}
+                            onComplete={() => markComplete(video.id)}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              )}
 
-                <div className="sectionTitle">
-                  <h4>{t.stats}</h4>
-                  <span>School-wide overview</span>
-                </div>
-
-                <div className="studentList">
-                  {demoData.students.map((student) => {
-                    const done = Object.values(state.videoProgress[student.id] || {}).filter(Boolean).length;
-                    const pct = percentFromProgress(state.videoProgress[student.id]);
-                    return (
-                      <div className="studentRow" key={student.id}>
-                        <div className="studentRowLeft">
-                          <img className="avatar" src={`${AVATAR_STYLE}${encodeURIComponent(student.name)}`} alt={student.name} />
-                          <div>
-                            <h5>{student.name}</h5>
-                            <p>{student.className} · {student.id}</p>
-                          </div>
-                        </div>
-                        <div className="miniStat">
-                          {pct}%
-                          <span>{done}/3 watched</span>
-                        </div>
+              {session.role === 'parent' && (
+                <>
+                  <div className="studentHero">
+                    <div>
+                      <strong>{lang === 'hi' ? `बच्चे की प्रगति एक नज़र में` : `Child progress at a glance`}</strong>
+                      <p>{t.trustworthy}</p>
+                      <div className="heroMeta">
+                        <span>{t.whatChildLearns}</span>
+                        <span>{t.resources}</span>
+                        <span>{t.quickNotes}</span>
                       </div>
-                    );
-                  })}
-                </div>
-              </>
-            )}
-
-            {session.role === 'parent' && (
-              <div className="parentGrid">
-                <div className="parentHero">
-                  <div className="dashHeader" style={{ marginBottom: 10 }}>
-                    <div>
-                      <h4 className="greeting">Parent dashboard</h4>
-                      <p className="greetingSub">A calm, trust-building view with aggregate progress and supportive resources.</p>
                     </div>
-                    <img className="avatar" src={`${AVATAR_STYLE}Parent`} alt="Parent avatar" />
+                    <div className="heroThumbnail">
+                      <img src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=900&q=80" alt="parents and children" />
+                    </div>
                   </div>
-                  <div className="parentNote">{t.trustworthy}</div>
-                </div>
-
-                <div className="statGrid">
-                  <StatCard tone="teal" icon="🛡️" label="Child wellbeing" value="Good" />
-                  <StatCard tone="amber" icon="📘" label="Modules visible" value="3" />
-                  <StatCard tone="green" icon="💬" label={t.quickNotes} value="2" />
-                </div>
-
-                <div className="sectionTitle">
-                  <h4>{t.whatChildLearns}</h4>
-                  <span>{t.resources}</span>
-                </div>
-
-                <div className="resourceGrid">
-                  <div className="resourceCard"><strong>Stress relief</strong>Breathing and calming techniques for classroom moments.</div>
-                  <div className="resourceCard"><strong>Mindfulness</strong>Short routines to build focus and emotional awareness.</div>
-                  <div className="resourceCard"><strong>Resilience</strong>How to bounce back after a tough day or a setback.</div>
-                  <div className="resourceCard"><strong>Parent guides</strong>Downloadable tips for supporting children at home.</div>
-                </div>
-
-                <div className="parentNote">{t.parentComing}</div>
-              </div>
-            )}
+                  <div className="statGrid">
+                    <StatCard tone="dark" icon="🛡️" label="Privacy-safe visibility" value="On" trend="Aggregate only" />
+                    <StatCard tone="dark" icon="📘" label="Modules visible" value="3" trend="Up to date" />
+                    <StatCard tone="dark" icon="💬" label={t.quickNotes} value="2" trend="This month" />
+                  </div>
+                  <div className="childGrid">
+                    <div className="resourceCard"><strong>Stress relief</strong>Breathing and calming techniques for classroom moments.</div>
+                    <div className="resourceCard"><strong>Mindfulness</strong>Short routines to build focus and emotional awareness.</div>
+                    <div className="resourceCard"><strong>Resilience</strong>How to bounce back after a tough day or setback.</div>
+                    <div className="resourceCard"><strong>Parent guides</strong>Downloadable tips for supporting children at home.</div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-
-          <aside className="panel">
-            <div className="sectionTitle">
-              <h4>Demo context</h4>
-              <span>Vercel-ready</span>
-            </div>
-            <div className="studentHeroArt" style={{ width: '100%', height: 190, flex: 'none', marginBottom: 14 }}>
-              <img src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=1200&q=80" alt="Indian students" />
-            </div>
-            <div className="resourceGrid" style={{ gridTemplateColumns: '1fr', marginBottom: 14 }}>
-              <div className="resourceCard"><strong>School</strong>{state.school.name}</div>
-              <div className="resourceCard"><strong>Role</strong>{session.role}</div>
-              <div className="resourceCard"><strong>Mobile</strong>Responsive</div>
-              <div className="resourceCard"><strong>PWA</strong>Installable</div>
-            </div>
-            <div className="sectionTitle">
-              <h4>Quick actions</h4>
-              <span>Mock only</span>
-            </div>
-            <div className="btnGroup">
-              <button className="ghostBtn" onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}>Toggle language</button>
-              {session.role === 'student' && <button className="ghostBtn" onClick={() => setState(buildState())}>Reset progress</button>}
-            </div>
-            <div style={{ marginTop: 16 }}>
-              <div className="sectionTitle">
-                <h4>Selected video</h4>
-                <span>{selectedVideo}</span>
-              </div>
-              <div className="resourceCard">
-                <strong>{currentVideo.title[lang]}</strong>
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>{currentVideo.topic} · {currentVideo.duration}</div>
-              </div>
-            </div>
-          </aside>
         </section>
       )}
+
+      <section className="pricingSection" id="pricing">
+        <div className="pageWidth">
+          <div className="pricingHead">
+            <div>
+              <h2>Pricing built for schools</h2>
+              <p>Simple tiers for academic rollout, parent expansion, and full school-wide adoption.</p>
+            </div>
+            <Link className="secondaryBtn" href="/pricing">Open pricing page</Link>
+          </div>
+          <div className="pricingGrid">
+            <PricingCard
+              title="Academic"
+              price="₹150 / student / year"
+              subtitle="Curriculum videos, progress tracking, and school analytics."
+              features={['Student learning library', 'Progress dashboard', 'School analytics', 'Responsive web app']}
+            />
+            <PricingCard
+              title="Blanket"
+              price="₹220 / student / year"
+              subtitle="Everything in Academic, plus parent visibility and advanced support."
+              features={['Parent resources', 'Aggregate child progress', 'Advanced analytics', 'Most Popular package']}
+              popular
+            />
+            <PricingCard
+              title="School-Wide Flat"
+              price="₹40,000–₹80,000 / year"
+              subtitle="For larger institutions and district-level rollouts."
+              features={['Campus-wide access', 'Admin controls', 'Curriculum customization', 'Rollout support']}
+            />
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
