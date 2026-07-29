@@ -39,7 +39,7 @@ const demoData = {
 const STRINGS = {
   en: {
     appName: 'MindWell',
-    tagline: 'A calming school wellbeing platform for students, parents, and schools.',
+    tagline: 'Growing calmer, kinder, stronger students together.',
     loginTitle: 'Welcome to MindWell',
     loginSub: 'A warm demo for school mental wellbeing, built for a fast hackathon pitch.',
     role: 'Role',
@@ -80,7 +80,7 @@ const STRINGS = {
   },
   hi: {
     appName: 'माइंडवेल',
-    tagline: 'छात्रों, अभिभावकों और स्कूलों के लिए एक शांत, भरोसेमंद wellbeing platform.',
+    tagline: 'साथ मिलकर बच्चों को शांत, आत्मविश्वासी और मजबूत बनाना.',
     loginTitle: 'माइंडवेल में आपका स्वागत है',
     loginSub: 'स्कूल mental wellbeing का warm demo, hackathon pitch के लिए तैयार.',
     role: 'भूमिका',
@@ -528,7 +528,7 @@ export default function Page() {
           <div className="logo">MW</div>
           <div className="title">
             <h1>{t.appName}</h1>
-            <p>{t.bilingualHint} · {t.installHint} · {t.downloadHint}</p>
+            <p>{t.tagline}</p>
           </div>
         </div>
         <div className="btnRow">
