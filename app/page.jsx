@@ -253,6 +253,30 @@ export default function Page() {
 
   const currentVideo = demoData.videos.find((v) => v.id === selectedVideo) || demoData.videos[0];
 
+  const switchView = (nextRole) => {
+    if (nextRole === 'student') {
+      setRole('student');
+      setEmail('student1@mindwell.app');
+      setPassword('demo123');
+      setSession({ role: 'student', email: 'student1@mindwell.app' });
+      setMode('app');
+      return;
+    }
+    if (nextRole === 'admin') {
+      setRole('admin');
+      setEmail('school@mindwell.app');
+      setPassword('demo123');
+      setSession({ role: 'admin', email: 'school@mindwell.app' });
+      setMode('app');
+      return;
+    }
+    setRole('parent');
+    setEmail('parent@mindwell.app');
+    setPassword('demo123');
+    setSession({ role: 'parent', email: 'parent@mindwell.app' });
+    setMode('app');
+  };
+
   return (
     <main className="shell">
       <style jsx global>{`
@@ -302,6 +326,19 @@ export default function Page() {
         .signOut {
           border:none; background:white; color:var(--brand); border:1px solid var(--border); border-radius:16px; padding:12px 16px; font-weight:800; cursor:pointer; box-shadow: 0 10px 25px rgba(15,118,110,0.08);
         }
+        .demoFlow {
+          position: sticky; top: 12px; z-index: 20;
+          display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+          margin: 0 0 14px; padding: 12px 14px; border-radius: 18px;
+          background: rgba(255,255,255,0.78); backdrop-filter: blur(14px); border:1px solid var(--border);
+          box-shadow: 0 14px 30px rgba(15,118,110,0.08);
+        }
+        .demoFlow span { font-weight:900; color:var(--text); }
+        .demoFlowActions { display:flex; gap:8px; flex-wrap:wrap; }
+        .flowBtn {
+          border:none; border-radius:999px; padding:10px 14px; background:#edf8f6; color:var(--brand); cursor:pointer; font-weight:900;
+        }
+        .flowBtn.active { background: linear-gradient(135deg, var(--brand), var(--brand2)); color:white; }
         .pageGrid { display:grid; gap:16px; }
         .loginGrid { grid-template-columns: 1.15fr 0.85fr; align-items:stretch; }
         .heroCard {
@@ -502,6 +539,17 @@ export default function Page() {
           {session && <button className="signOut" onClick={logout}>{t.signOut}</button>}
         </div>
       </div>
+
+      {mode === 'app' && session && (
+        <div className="demoFlow">
+          <span>Demo flow: {session.role}</span>
+          <div className="demoFlowActions">
+            <button className={`flowBtn ${session.role === 'student' ? 'active' : ''}`} onClick={() => switchView('student')}>Student</button>
+            <button className={`flowBtn ${session.role === 'admin' ? 'active' : ''}`} onClick={() => switchView('admin')}>Admin</button>
+            <button className={`flowBtn ${session.role === 'parent' ? 'active' : ''}`} onClick={() => switchView('parent')}>Parent</button>
+          </div>
+        </div>
+      )}
 
       {mode === 'login' ? (
         <section className="pageGrid loginGrid">
