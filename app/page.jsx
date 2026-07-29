@@ -39,7 +39,7 @@ const demoData = {
 const STRINGS = {
   en: {
     appName: 'MindWell',
-    tagline: 'Growing calmer, kinder, stronger students together.',
+    tagline: 'A school wellbeing platform that feels warm for families and credible for schools.',
     loginTitle: 'Welcome to MindWell',
     loginSub: 'A warm demo for school mental wellbeing, built for a fast hackathon pitch.',
     role: 'Role',
@@ -80,7 +80,7 @@ const STRINGS = {
   },
   hi: {
     appName: 'माइंडवेल',
-    tagline: 'साथ मिलकर बच्चों को शांत, आत्मविश्वासी और मजबूत बनाना.',
+    tagline: 'परिवारों के लिए गर्मजोशी, स्कूलों के लिए भरोसेमंद wellbeing platform.',
     loginTitle: 'माइंडवेल में आपका स्वागत है',
     loginSub: 'स्कूल mental wellbeing का warm demo, hackathon pitch के लिए तैयार.',
     role: 'भूमिका',
@@ -377,6 +377,27 @@ export default function Page() {
         }
         .heroStat strong { display:block; font-size:1.7rem; }
         .heroStat span { font-size:0.92rem; color: rgba(255,255,255,0.88); }
+        .heroStory {
+          display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:10px;
+          width:min(100%, 640px);
+        }
+        .heroStoryCard {
+          padding:14px 14px 16px; border-radius:18px; backdrop-filter: blur(10px);
+          background: rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.16);
+        }
+        .heroStoryCard strong { display:block; font-size:1rem; margin-bottom:6px; }
+        .heroStoryCard span { color: rgba(255,255,255,0.9); font-size:0.9rem; line-height:1.45; }
+        .heroStoryCard.teal { box-shadow: inset 0 0 0 1px rgba(20,184,166,0.12); }
+        .heroStoryCard.amber { box-shadow: inset 0 0 0 1px rgba(245,158,11,0.12); }
+        .heroStoryCard.green { box-shadow: inset 0 0 0 1px rgba(34,197,94,0.12); }
+        .platformRibbon {
+          display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; padding: 0;
+        }
+        .platformRibbon span {
+          display:inline-flex; align-items:center; gap:6px; padding:8px 11px; border-radius:999px;
+          background: white; border:1px solid var(--border); color: var(--brand); font-weight:900; font-size:0.82rem;
+          box-shadow: 0 8px 18px rgba(15,118,110,0.05);
+        }
         .loginCard, .panel {
           background: var(--panel); border:1px solid var(--border); backdrop-filter: blur(14px);
           border-radius: 28px; box-shadow: var(--shadow); overflow:hidden;
@@ -508,6 +529,7 @@ export default function Page() {
           .heroCard { min-height: 520px; }
           .heroContent { min-height: 520px; }
           .statGrid { grid-template-columns: 1fr; }
+          .heroStory { grid-template-columns: 1fr; width:100%; }
         }
         @media (max-width: 640px) {
           .shell { padding: 14px; }
@@ -569,13 +591,23 @@ export default function Page() {
               </div>
               <div className="heroBottom">
                 <div className="heroStats">
-                  <div className="heroStat"><strong>3</strong><span>Videos</span></div>
-                  <div className="heroStat"><strong>5</strong><span>Students</span></div>
-                  <div className="heroStat"><strong>1</strong><span>School</span></div>
+                  <div className="heroStat"><strong>3</strong><span>Wellbeing paths</span></div>
+                  <div className="heroStat"><strong>5</strong><span>Demo learners</span></div>
+                  <div className="heroStat"><strong>1</strong><span>School network</span></div>
                 </div>
-                <div className="heroStat" style={{ maxWidth: 290 }}>
-                  <strong>{t.startToday}</strong>
-                  <span>{t.trustworthy}</span>
+                <div className="heroStory">
+                  <div className="heroStoryCard teal">
+                    <strong>Students</strong>
+                    <span>Guided learning with progress and badges</span>
+                  </div>
+                  <div className="heroStoryCard amber">
+                    <strong>Parents</strong>
+                    <span>Privacy-safe milestones and support notes</span>
+                  </div>
+                  <div className="heroStoryCard green">
+                    <strong>Schools</strong>
+                    <span>Enterprise-ready rollouts and analytics</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -629,6 +661,13 @@ export default function Page() {
                   </div>
                 </div>
               )}
+            </div>
+
+            <div className="platformRibbon">
+              <span>Enterprise-ready</span>
+              <span>Role-based access</span>
+              <span>School-safe analytics</span>
+              <span>Mobile-first PWA</span>
             </div>
 
             {session.role === 'student' && currentUser && (
