@@ -14,6 +14,17 @@
 }
 
 /* Logo */
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.logoWhite span {
+  color: white;
+}
+
 .logoSection {
   padding: 20px 20px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);

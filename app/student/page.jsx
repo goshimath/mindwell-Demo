@@ -4,23 +4,31 @@ import { useState, useEffect } from 'react';
 import ProgressBar from '@/components/ProgressBar';
 import { CardSkeleton } from '@/components/Skeleton';
 import { pillars, pillarColors } from '@/lib/data';
+import IspanLogo from '@/components/IspanLogo';
 import styles from '@/styles/student.module.css';
 
 const mockTracks = [
-  { pillarId: 'psychology', progress: 62, sessionsCompleted: 5, totalSessions: 8, status: 'in-progress', emoji: '🧠', color: '#9B8EC4', bgGradient: 'linear-gradient(135deg, #E8DEFF 0%, #F5F0FF 100%)' },
-  { pillarId: 'nutrition', progress: 38, sessionsCompleted: 3, totalSessions: 8, status: 'in-progress', emoji: '🍎', color: '#7CB87A', bgGradient: 'linear-gradient(135deg, #E8F5E9 0%, #F1F8F1 100%)' },
-  { pillarId: 'snc', progress: 100, sessionsCompleted: 8, totalSessions: 8, status: 'completed', emoji: '💪', color: '#C4A84D', bgGradient: 'linear-gradient(135deg, #FFF8E1 0%, #FFFDF5 100%)' },
-  { pillarId: 'physiotherapy', progress: 0, sessionsCompleted: 0, totalSessions: 8, status: 'not-started', emoji: '🏃', color: '#2B5EA7', bgGradient: 'linear-gradient(135deg, #E3F2FD 0%, #F5F9FF 100%)' },
+  { pillarId: 'psychology', progress: 62, sessionsCompleted: 5, totalSessions: 8, status: 'in-progress', sessionTitle: 'Managing Exam Stress', sessionNum: 3, duration: '12 min' },
+  { pillarId: 'nutrition', progress: 38, sessionsCompleted: 3, totalSessions: 8, status: 'in-progress', sessionTitle: 'Balanced Indian Meals', sessionNum: 2, duration: '10 min' },
+  { pillarId: 'snc', progress: 100, sessionsCompleted: 8, totalSessions: 8, status: 'completed', sessionTitle: 'Core Strength', sessionNum: 8, duration: '20 min' },
+  { pillarId: 'physiotherapy', progress: 0, sessionsCompleted: 0, totalSessions: 8, status: 'not-started', sessionTitle: 'Posture Basics', sessionNum: 1, duration: '15 min' },
 ];
+
+const pillarStyles = {
+  psychology: { gradient: 'linear-gradient(135deg, #2B5EA7, #4A90D9)', icon: '🧠' },
+  nutrition: { gradient: 'linear-gradient(135deg, #7CB87A, #A8D8A0)', icon: '🥗' },
+  snc: { gradient: 'linear-gradient(135deg, #C4A84D, #E8D080)', icon: '💪' },
+  physiotherapy: { gradient: 'linear-gradient(135deg, #9B8EC4, #B8A8D8)', icon: '🦴' },
+};
 
 const badges = [
-  { icon: '🌟', label: 'First Session', color: '#FFD700' },
-  { icon: '🔥', label: '3-Day Streak', color: '#FF6B35' },
-  { icon: '💪', label: 'S&C Champion', color: '#C4A84D' },
-  { icon: '🧠', label: 'Mind Master', color: '#9B8EC4' },
+  { icon: '🏅', label: 'First Session', earned: true, color: '#FFD700' },
+  { icon: '🔥', label: '3-Day Streak', earned: true, color: '#FF6B35' },
+  { icon: '💪', label: 'S&C Champ', earned: true, color: '#C4A84D' },
+  { icon: '🧠', label: 'Mind Pro', earned: true, color: '#9B8EC4' },
+  { icon: '🍎', label: 'Nutrition Pro', earned: false, color: '#ccc' },
+  { icon: '🏆', label: 'Champion', earned: false, color: '#ccc' },
 ];
-
-const floatingEmojis = ['🌟', '⭐', '🎯', '🎨', '📚', '🦋', '🌈', '🌻'];
 
 export default function StudentDashboard() {
   const [loading, setLoading] = useState(true);
@@ -34,116 +42,103 @@ export default function StudentDashboard() {
 
   return (
     <div className={styles.studentWrap}>
-      {/* Floating background decoration */}
-      <div className={styles.floatingDecor}>
-        {floatingEmojis.map((e, i) => (
-          <span key={i} className={styles.floatingEmoji} style={{
-            left: `${10 + (i * 12)}%`,
-            animationDelay: `${i * 0.7}s`,
-            fontSize: `${1.2 + Math.random() * 0.8}rem`,
-          }}>{e}</span>
-        ))}
-      </div>
-
-      {/* Hero greeting */}
+      {/* Hero session card — gradient pill */}
       <div className={styles.heroCard}>
         <div className={styles.heroContent}>
-          <div className={styles.heroGreeting}>
-            <span className={styles.wave}>👋</span>
-            <h1>Hi Aarav!</h1>
+          <span className={styles.heroEyebrow}>YOUR NEXT SESSION</span>
+          <h1 className={styles.heroTitle}>
+            <span className={styles.heroEmoji}>🧠</span>
+            Psychology — {mockTracks[0].sessionTitle}
+          </h1>
+          <p className={styles.heroMeta}>Session {mockTracks[0].sessionNum} of {mockTracks[0].totalSessions} · {mockTracks[0].duration}</p>
+          <div className={styles.heroProgress}>
+            <ProgressBar value={mockTracks[0].progress} color="rgba(255,255,255,0.9)" />
           </div>
-          <p className={styles.heroSub}>Ready to continue your wellness adventure?</p>
           <button className={styles.heroBtn}>
-            <span className={styles.btnIcon}>▶</span>
-            Continue Session
+            <span className={styles.playIcon}>▶</span>
+            Continue Learning
           </button>
-        </div>
-        <div className={styles.heroVisual}>
-          <div className={styles.heroCircle}>
-            <span className={styles.heroBigEmoji}>🧠</span>
-          </div>
-          <div className={styles.heroDots}>
-            <span className={styles.dot} style={{ background: '#9B8EC4' }} />
-            <span className={styles.dot} style={{ background: '#7CB87A' }} />
-            <span className={styles.dot} style={{ background: '#C4A84D' }} />
-            <span className={styles.dot} style={{ background: '#2B5EA7' }} />
-          </div>
         </div>
       </div>
 
       {/* Track cards */}
       <div className={styles.sectionHeader}>
-        <h2>🎯 Your Four Tracks</h2>
-        <span className={styles.sectionSub}>Pick a track to continue learning</span>
+        <h2>YOUR TRACKS</h2>
       </div>
       <div className={styles.trackGrid}>
         {mockTracks.map((track) => {
           const pillar = pillars.find((p) => p.id === track.pillarId);
+          const ps = pillarStyles[track.pillarId];
           const isComplete = track.status === 'completed';
-          const isStarted = track.status === 'in-progress';
-          const buttonLabel = isComplete ? '✅ Done!' : isStarted ? 'Continue →' : '🚀 Start';
+          const isNotStarted = track.status === 'not-started';
 
           return (
             <div
               key={track.pillarId}
               className={`${styles.trackCard} ${isComplete ? styles.trackComplete : ''}`}
-              style={{ background: track.bgGradient }}
+              style={{ background: ps.gradient }}
             >
               <div className={styles.trackTop}>
-                <span className={styles.trackEmoji}>{track.emoji}</span>
-                {isComplete && <span className={styles.completeBadge}>⭐ Complete!</span>}
+                <span className={styles.trackEmoji}>{ps.icon}</span>
+                {isComplete && <span className={styles.doneBadge}>✅ DONE!</span>}
+                {isNotStarted && <span className={styles.startBadge}>New!</span>}
               </div>
               <h3 className={styles.trackTitle}>{pillar?.label}</h3>
-              <span className={styles.trackMeta}>{track.sessionsCompleted}/{track.totalSessions} sessions</span>
+              <span className={styles.trackSessions}>{track.sessionsCompleted}/{track.totalSessions} done</span>
               <div className={styles.trackProgress}>
-                <div className={styles.trackProgressInfo}>
-                  <span className={styles.trackPct}>{track.progress}%</span>
-                </div>
-                <ProgressBar value={track.progress} color={track.color} />
+                <ProgressBar value={track.progress} color="rgba(255,255,255,0.85)" />
+                <span className={styles.trackPct}>{track.progress}%</span>
               </div>
-              <button
-                className={`${styles.trackBtn} ${isComplete ? styles.trackBtnDone : ''}`}
-                style={{ borderColor: track.color, color: track.color }}
-              >
-                {buttonLabel}
-              </button>
+              {isComplete && (
+                <button className={styles.trackBtnWhite}>View Badge 🏅</button>
+              )}
+              {!isComplete && (
+                <button className={styles.trackBtnWhite}>
+                  {isNotStarted ? 'Start ▶' : 'Continue ▶'}
+                </button>
+              )}
             </div>
           );
         })}
       </div>
 
-      {/* Streaks and badges */}
-      <div className={styles.streaksSection}>
-        <div className={styles.sectionHeader}>
-          <h2>🏆 Your Streaks & Badges</h2>
+      {/* Streaks — three big numbers */}
+      <div className={styles.sectionHeader}>
+        <h2>YOUR STREAKS</h2>
+      </div>
+      <div className={styles.streaksCard}>
+        <div className={styles.streakBlock}>
+          <span className={styles.streakIcon}>🔥</span>
+          <span className={styles.streakNum}>3</span>
+          <span className={styles.streakLabel}>Day Streak</span>
         </div>
-        <div className={styles.streaksCard}>
-          <div className={styles.streakInfo}>
-            <div className={styles.streakFire}>🔥</div>
-            <div>
-              <span className={styles.streakCount}>3</span>
-              <strong>Day Streak</strong>
-              <span className={styles.streakMsg}>Keep it going, superstar!</span>
-            </div>
-          </div>
-          <div className={styles.badgesRow}>
-            {badges.map((b) => (
-              <div key={b.label} className={styles.badgeChip} style={{ borderColor: b.color }}>
-                <span className={styles.badgeIcon}>{b.icon}</span>
-                <span>{b.label}</span>
-              </div>
-            ))}
-          </div>
+        <div className={styles.streakDivider} />
+        <div className={styles.streakBlock}>
+          <span className={styles.streakIcon}>⭐</span>
+          <span className={styles.streakNum}>12</span>
+          <span className={styles.streakLabel}>Sessions Done</span>
+        </div>
+        <div className={styles.streakDivider} />
+        <div className={styles.streakBlock}>
+          <span className={styles.streakIcon}>🏅</span>
+          <span className={styles.streakNum}>4</span>
+          <span className={styles.streakLabel}>Badges Earned</span>
         </div>
       </div>
 
-      {/* Encouragement */}
-      <div className={styles.encourageCard}>
-        <span className={styles.encourageEmoji}>🌟</span>
-        <div>
-          <strong>You&apos;re doing amazing!</strong>
-          <span>Complete all 4 tracks to become a Wellness Champion</span>
-        </div>
+      {/* Badges — scrollable row */}
+      <div className={styles.sectionHeader}>
+        <h2>BADGES</h2>
+      </div>
+      <div className={styles.badgesScroll}>
+        {badges.map((b) => (
+          <div key={b.label} className={`${styles.badgeItem} ${!b.earned ? styles.badgeLocked : ''}`}>
+            <div className={styles.badgeCircle} style={b.earned ? { background: `${b.color}20`, borderColor: b.color } : {}}>
+              <span className={styles.badgeEmoji}>{b.earned ? b.icon : '❓'}</span>
+            </div>
+            <span className={styles.badgeLabel}>{b.earned ? b.label : 'Locked'}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

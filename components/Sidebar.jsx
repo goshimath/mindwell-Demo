@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import IspanLogo from '@/components/IspanLogo';
 import styles from '@/styles/sidebar.module.css';
 
 const navConfig = {
@@ -69,10 +70,7 @@ export default function Sidebar({ role, user, onLogout }) {
         {/* Logo */}
         <div className={styles.logoSection}>
           <Link href={`/${role}`} className={styles.logoLink}>
-            <div className={styles.logo}>
-              <span className={styles.logoIcon}>✦</span>
-            </div>
-            <span className={styles.logoText}>iSpan</span>
+            <IspanLogo size="md" className={styles.logoWhite} />
           </Link>
         </div>
 

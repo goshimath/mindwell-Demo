@@ -1,41 +1,14 @@
 .studentWrap {
-  position: relative;
-  overflow: hidden;
+  display: grid;
+  gap: 20px;
 }
 
-/* Floating background decoration */
-.floatingDecor {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 300px;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.floatingEmoji {
-  position: absolute;
-  top: -20px;
-  opacity: 0.15;
-  animation: floatDown 8s ease-in-out infinite;
-}
-
-@keyframes floatDown {
-  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
-  50% { transform: translateY(30px) rotate(15deg); opacity: 0.2; }
-}
-
-/* Hero card */
+/* Hero session card — gradient pill */
 .heroCard {
-  background: linear-gradient(135deg, #2B5EA7 0%, #1a4080 50%, #9B8EC4 100%);
+  background: linear-gradient(135deg, #2B5EA7 0%, #1a6b5a 100%);
   color: white;
   border-radius: 20px;
-  padding: 36px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
+  padding: 32px 36px;
   box-shadow: 0 8px 32px rgba(43, 94, 167, 0.3);
   position: relative;
   overflow: hidden;
@@ -44,44 +17,57 @@
 .heroCard::before {
   content: '';
   position: absolute;
-  top: -40%;
-  right: -10%;
-  width: 300px;
-  height: 300px;
+  top: -60%;
+  right: -15%;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   pointer-events: none;
 }
 
-.heroGreeting {
+.heroCard::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: -10%;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.heroEyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.heroTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 8px 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.wave {
-  font-size: 2.2rem;
-  animation: wave 1.5s ease-in-out infinite;
-  display: inline-block;
+.heroEmoji {
+  font-size: 1.8rem;
 }
 
-@keyframes wave {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(20deg); }
-  75% { transform: rotate(-10deg); }
+.heroMeta {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 16px;
 }
 
-.heroCard h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 0;
-  color: white;
-}
-
-.heroSub {
-  margin: 8px 0 24px;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.05rem;
+.heroProgress {
+  margin-bottom: 20px;
 }
 
 .heroBtn {
@@ -89,10 +75,10 @@
   align-items: center;
   gap: 10px;
   padding: 14px 28px;
-  border-radius: 14px;
+  border-radius: 999px;
   border: none;
   background: white;
-  color: var(--brand-blue);
+  color: #2B5EA7;
   font-weight: 800;
   font-size: 1rem;
   cursor: pointer;
@@ -101,284 +87,231 @@
 }
 
 .heroBtn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.btnIcon {
-  font-size: 0.9rem;
-}
-
-.heroVisual {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.heroCircle {
-  width: 100px;
-  height: 100px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
-  display: grid;
-  place-items: center;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-.heroBigEmoji {
-  font-size: 3rem;
-}
-
-.heroDots {
-  display: flex;
-  gap: 6px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  opacity: 0.8;
+.playIcon {
+  font-size: 0.85rem;
 }
 
 /* Section header */
-.sectionHeader {
-  margin: 8px 0 4px;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
 .sectionHeader h2 {
-  font-size: 1.1rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  color: var(--text-primary);
-}
-
-.sectionSub {
-  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--text-secondary);
 }
 
-/* Track grid */
+/* Track cards — gradient grid */
 .trackGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .trackCard {
   border-radius: 18px;
   padding: 22px;
-  border: 2px solid transparent;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
+  color: white;
   position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .trackCard:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
 }
 
 .trackComplete {
-  border-color: var(--status-green);
+  box-shadow: 0 4px 20px rgba(196, 168, 77, 0.3);
 }
 
 .trackTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .trackEmoji {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
 }
 
-.completeBadge {
-  padding: 4px 10px;
+.doneBadge {
+  padding: 4px 12px;
   border-radius: 999px;
-  background: rgba(34, 197, 94, 0.12);
-  color: var(--status-green);
-  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.startBadge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.72rem;
   font-weight: 800;
 }
 
 .trackTitle {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
   margin: 0 0 4px;
-  color: var(--text-primary);
 }
 
-.trackMeta {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+.trackSessions {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .trackProgress {
   margin: 14px 0;
 }
 
-.trackProgressInfo {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
+.trackProgress > div {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .trackPct {
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: var(--text-primary);
+  display: block;
+  margin-top: 6px;
+  font-size: 1.6rem;
+  font-weight: 900;
 }
 
-.trackBtn {
+.trackBtnWhite {
   width: 100%;
   padding: 12px;
   border-radius: 12px;
-  border: 2px solid;
-  background: white;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
   font-weight: 800;
   font-size: 0.9rem;
   cursor: pointer;
+  backdrop-filter: blur(4px);
   transition: all 0.2s ease;
 }
 
-.trackBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.trackBtnWhite:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
-.trackBtnDone {
-  background: rgba(34, 197, 94, 0.06);
-  border-color: var(--status-green);
-  color: var(--status-green);
-  cursor: default;
-}
-
-/* Streaks */
-.streaksSection {
-  margin-top: 8px;
-}
-
+/* Streaks — three big numbers */
 .streaksCard {
-  background: linear-gradient(135deg, #FFF8E1 0%, #FFFDE7 100%);
-  border: 2px solid rgba(196, 168, 77, 0.2);
-  border-radius: 18px;
-  padding: 22px;
-}
-
-.streakInfo {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
+  background: var(--surface-white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
 }
 
-.streakFire {
-  font-size: 2.5rem;
-  animation: fireFlicker 1s ease-in-out infinite alternate;
+.streakBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-@keyframes fireFlicker {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+.streakIcon {
+  font-size: 1.5rem;
 }
 
-.streakCount {
-  font-size: 2.6rem;
+.streakNum {
+  font-size: 2rem;
   font-weight: 900;
-  color: var(--brand-gold);
-  line-height: 1;
-}
-
-.streakInfo strong {
-  display: block;
-  font-size: 1.05rem;
   color: var(--text-primary);
 }
 
-.streakMsg {
-  font-size: 0.85rem;
+.streakLabel {
+  font-size: 0.78rem;
   color: var(--text-secondary);
+  font-weight: 600;
 }
 
-.badgesRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.streakDivider {
+  width: 1px;
+  height: 48px;
+  background: var(--border);
 }
 
-.badgeChip {
+/* Badges — scrollable */
+.badgesScroll {
   display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.badgeItem {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: white;
-  border: 2px solid;
-  font-size: 0.82rem;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.badgeCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease;
+}
+
+.badgeCircle:hover {
+  transform: scale(1.1);
+}
+
+.badgeLocked .badgeCircle {
+  background: var(--surface-gray);
+  border-color: var(--border);
+}
+
+.badgeEmoji {
+  font-size: 1.6rem;
+}
+
+.badgeLabel {
+  font-size: 0.72rem;
   font-weight: 700;
-  color: var(--text-primary);
-  transition: transform 0.15s ease;
-}
-
-.badgeChip:hover {
-  transform: scale(1.05);
-}
-
-.badgeIcon {
-  font-size: 1.1rem;
-}
-
-/* Encouragement */
-.encourageCard {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 22px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(155, 142, 196, 0.08), rgba(43, 94, 167, 0.06));
-  border: 1px solid rgba(155, 142, 196, 0.15);
-}
-
-.encourageEmoji {
-  font-size: 2rem;
-}
-
-.encourageCard strong {
-  display: block;
-  font-size: 1rem;
-  color: var(--text-primary);
-}
-
-.encourageCard span {
-  font-size: 0.85rem;
   color: var(--text-secondary);
+  text-align: center;
 }
 
 @media (max-width: 768px) {
   .heroCard {
-    flex-direction: column;
-    text-align: center;
-    padding: 28px 20px;
+    padding: 24px 20px;
   }
 
-  .heroGreeting {
-    justify-content: center;
+  .heroTitle {
+    font-size: 1.2rem;
   }
 
   .trackGrid {
     grid-template-columns: 1fr;
+  }
+
+  .streaksCard {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .streakDivider {
+    width: 60%;
+    height: 1px;
   }
 }

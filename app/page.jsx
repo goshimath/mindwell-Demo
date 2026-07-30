@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { demoAccounts, school, pillars } from '@/lib/data';
 import { t } from '@/lib/strings';
+import IspanLogo from '@/components/IspanLogo';
 import styles from '@/styles/landing.module.css';
 
 export default function LandingPage() {
@@ -38,10 +39,7 @@ export default function LandingPage() {
         <div className={styles.pageWidth}>
           <div className={styles.topbar}>
             <div className={styles.brand}>
-              <div className={styles.logo}>
-                <span className={styles.logoIcon}>✦</span>
-                <span>iSpan</span>
-              </div>
+              <IspanLogo size="md" />
             </div>
             <div className={styles.topActions}>
               <Link className={styles.navLink} href="/pricing">{t(lang, 'pricing')}</Link>
@@ -80,6 +78,9 @@ export default function LandingPage() {
             </div>
 
             <div className={styles.heroCard}>
+              <div className={styles.loginLogoWrap}>
+                <IspanLogo size="lg" />
+              </div>
               <div className={styles.loginHeader}>
                 <h3>{t(lang, 'loginTitle')}</h3>
                 <p>{t(lang, 'loginSub')}</p>
@@ -178,10 +179,7 @@ export default function LandingPage() {
         <div className={styles.pageWidth}>
           <div className={styles.footerInner}>
             <div className={styles.footerBrand}>
-              <div className={styles.logo}>
-                <span className={styles.logoIcon}>✦</span>
-                <span>iSpan</span>
-              </div>
+              <IspanLogo size="sm" />
               <p>India&apos;s first integrated wellness studio</p>
             </div>
             <div className={styles.footerMeta}>
