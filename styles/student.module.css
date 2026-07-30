@@ -1,122 +1,233 @@
+.studentWrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating background decoration */
+.floatingDecor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floatingEmoji {
+  position: absolute;
+  top: -20px;
+  opacity: 0.15;
+  animation: floatDown 8s ease-in-out infinite;
+}
+
+@keyframes floatDown {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+  50% { transform: translateY(30px) rotate(15deg); opacity: 0.2; }
+}
+
+/* Hero card */
 .heroCard {
-  background: linear-gradient(135deg, var(--brand-blue), #1a4080);
+  background: linear-gradient(135deg, #2B5EA7 0%, #1a4080 50%, #9B8EC4 100%);
   color: white;
-  border-radius: var(--radius-card);
-  padding: 32px;
+  border-radius: 20px;
+  padding: 36px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 32px rgba(43, 94, 167, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.heroContent h1 {
-  font: var(--font-h1);
+.heroCard::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.heroGreeting {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wave {
+  font-size: 2.2rem;
+  animation: wave 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+.heroCard h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
   color: white;
-  margin: 8px 0;
 }
 
-.heroContent p {
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0 0 20px;
-}
-
-.heroEyebrow {
-  font: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.6);
+.heroSub {
+  margin: 8px 0 24px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
 }
 
 .heroBtn {
-  padding: 12px 24px;
-  border-radius: var(--radius-btn);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 14px;
   border: none;
   background: white;
   color: var(--brand-blue);
   font-weight: 800;
-  font-size: 0.92rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
 }
 
 .heroBtn:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btnIcon {
+  font-size: 0.9rem;
 }
 
 .heroVisual {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.heroBadge {
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+.heroCircle {
+  width: 100px;
+  height: 100px;
+  border-radius: 28px;
   background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
   display: grid;
   place-items: center;
-  font-size: 2.5rem;
+  animation: pulse 2s ease-in-out infinite;
 }
 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.heroBigEmoji {
+  font-size: 3rem;
+}
+
+.heroDots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+/* Section header */
 .sectionHeader {
-  margin-top: 8px;
+  margin: 8px 0 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .sectionHeader h2 {
-  font: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.sectionSub {
+  font-size: 0.85rem;
   color: var(--text-secondary);
 }
 
+/* Track grid */
 .trackGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--card-gap);
+  gap: 16px;
 }
 
 .trackCard {
-  background: var(--surface-white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-  padding: 20px;
+  border-radius: 18px;
+  padding: 22px;
+  border: 2px solid transparent;
   box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.trackCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .trackComplete {
   border-color: var(--status-green);
 }
 
-.trackHeader {
+.trackTop {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
-.trackIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
+.trackEmoji {
+  font-size: 2.2rem;
 }
 
-.trackHeader h3 {
-  margin: 0;
-  font-size: 0.95rem;
+.completeBadge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--status-green);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.trackTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--text-primary);
 }
 
 .trackMeta {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
 .trackProgress {
-  margin-bottom: 14px;
+  margin: 14px 0;
 }
 
 .trackProgressInfo {
@@ -125,65 +236,80 @@
   margin-bottom: 6px;
 }
 
-.trackProgressInfo span {
-  font-weight: 700;
-  font-size: 0.85rem;
+.trackPct {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--text-primary);
 }
 
 .trackBtn {
   width: 100%;
-  padding: 10px;
-  border-radius: var(--radius-btn);
-  border: 1px solid;
-  background: transparent;
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid;
+  background: white;
+  font-weight: 800;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .trackBtn:hover {
-  background: var(--surface-gray);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.trackDone {
-  text-align: center;
-  padding: 10px;
-  border-radius: var(--radius-btn);
-  background: rgba(34, 197, 94, 0.08);
+.trackBtnDone {
+  background: rgba(34, 197, 94, 0.06);
+  border-color: var(--status-green);
   color: var(--status-green);
-  font-weight: 700;
-  font-size: 0.85rem;
+  cursor: default;
+}
+
+/* Streaks */
+.streaksSection {
+  margin-top: 8px;
 }
 
 .streaksCard {
-  background: var(--surface-white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, #FFF8E1 0%, #FFFDE7 100%);
+  border: 2px solid rgba(196, 168, 77, 0.2);
+  border-radius: 18px;
+  padding: 22px;
 }
 
 .streakInfo {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.streakFire {
+  font-size: 2.5rem;
+  animation: fireFlicker 1s ease-in-out infinite alternate;
+}
+
+@keyframes fireFlicker {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
 }
 
 .streakCount {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   font-weight: 900;
   color: var(--brand-gold);
+  line-height: 1;
 }
 
 .streakInfo strong {
   display: block;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  color: var(--text-primary);
 }
 
-.streakInfo span {
-  font-size: 0.82rem;
+.streakMsg {
+  font-size: 0.85rem;
   color: var(--text-secondary);
 }
 
@@ -199,17 +325,57 @@
   gap: 6px;
   padding: 8px 14px;
   border-radius: 999px;
-  background: var(--surface-gray);
-  border: 1px solid var(--border);
+  background: white;
+  border: 2px solid;
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: transform 0.15s ease;
+}
+
+.badgeChip:hover {
+  transform: scale(1.05);
+}
+
+.badgeIcon {
+  font-size: 1.1rem;
+}
+
+/* Encouragement */
+.encourageCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(155, 142, 196, 0.08), rgba(43, 94, 167, 0.06));
+  border: 1px solid rgba(155, 142, 196, 0.15);
+}
+
+.encourageEmoji {
+  font-size: 2rem;
+}
+
+.encourageCard strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.encourageCard span {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {
   .heroCard {
     flex-direction: column;
     text-align: center;
-    padding: 24px;
+    padding: 28px 20px;
+  }
+
+  .heroGreeting {
+    justify-content: center;
   }
 
   .trackGrid {
