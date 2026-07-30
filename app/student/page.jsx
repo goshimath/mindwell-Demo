@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ProgressBar from '@/components/ProgressBar';
 import ActivityGraph from '@/components/ActivityGraph';
+import StudentCharacter from '@/components/StudentCharacter';
 import { CardSkeleton } from '@/components/Skeleton';
 import { wellbeingAreas, curriculumVideos, experts, appointments, trackers, challenges } from '@/lib/data';
 import styles from '@/styles/student.module.css';
@@ -179,6 +180,11 @@ export default function StudentDashboard() {
                   <span>wellness score</span>
                 </div>
               </span>
+            </div>
+
+            {/* Illustrated character */}
+            <div className={styles.characterWrap}>
+              <StudentCharacter className={styles.characterSvg} />
             </div>
           </div>
 

@@ -143,6 +143,20 @@
 .chipGreen { background: rgba(124, 184, 122, 0.25); }
 .chipPurple { background: rgba(155, 142, 196, 0.25); }
 
+/* Character illustration */
+.characterWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+}
+.characterSvg {
+  width: 140px;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
 /* Section */
 .sectionHeader { margin-top: 8px; }
 .sectionHeader h2 { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); }
