@@ -1,34 +1,52 @@
 .dashboardSkeleton {
   display: grid;
-  gap: 16px;
+  gap: var(--section-gap);
 }
 
-.statGrid {
+.kpiGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: var(--card-gap);
 }
 
-.card {
-  padding: 18px;
-  border-radius: 16px;
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--card-gap);
 }
 
-.dark {
-  background: linear-gradient(180deg, #121f3a, #0f172a);
-}
-
-.tableSkeleton {
-  background: white;
+.kpiCard,
+.cardSkeleton {
+  background: var(--surface-white);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
+  padding: 18px;
+}
+
+.kpiTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--surface-gray);
+}
+
+.tableWrap {
+  background: var(--surface-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
   padding: 16px;
 }
 
 .tableHeader,
 .tableRow {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   align-items: center;
   padding: 10px 0;
 }
@@ -38,42 +56,26 @@
 }
 
 .tableRow {
-  border-bottom: 1px solid rgba(15, 31, 61, 0.04);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .line {
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.08) 100%
-  );
+  background: linear-gradient(90deg, var(--surface-gray) 0%, #e8eaed 50%, var(--surface-gray) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
-}
-
-.dark .line {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0.06) 100%
-  );
-  background-size: 200% 100%;
-}
-
-.tableSkeleton .line {
-  background: linear-gradient(
-    90deg,
-    rgba(15, 31, 61, 0.06) 0%,
-    rgba(15, 31, 61, 0.1) 50%,
-    rgba(15, 31, 61, 0.06) 100%
-  );
-  background-size: 200% 100%;
 }
 
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
 }

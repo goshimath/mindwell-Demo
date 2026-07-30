@@ -4,18 +4,18 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'MindWell',
-  description: 'School wellbeing platform for students, parents, and schools.',
+  title: 'iSpan — Inspiring Stronger Minds & Bodies',
+  description: 'India\'s first integrated wellness platform for schools. Psychology, physiotherapy, nutrition, and strength conditioning — for students, teachers, and parents.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'MindWell',
+    title: 'iSpan',
   },
 };
 
 export const viewport = {
-  themeColor: '#0F1F3D',
+  themeColor: '#0a1628',
 };
 
 export default function RootLayout({ children }) {

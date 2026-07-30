@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { demoAccounts, school } from '@/lib/data';
+import { demoAccounts, school, pillars } from '@/lib/data';
 import { t } from '@/lib/strings';
 import styles from '@/styles/landing.module.css';
 
@@ -27,14 +27,7 @@ export default function LandingPage() {
       return;
     }
 
-    // Store minimal session
-    localStorage.setItem('mindwell-demo-state', JSON.stringify({
-      role,
-      email,
-      school: school.name,
-    }));
-
-    // Route to role-specific dashboard
+    localStorage.setItem('ispan-demo-state', JSON.stringify({ role, email, school: school.name }));
     router.push(`/${role}`);
   };
 
@@ -45,10 +38,9 @@ export default function LandingPage() {
         <div className={styles.pageWidth}>
           <div className={styles.topbar}>
             <div className={styles.brand}>
-              <div className={styles.logo}>MW</div>
-              <div>
-                <h1>{t(lang, 'appName')}</h1>
-                <p>{t(lang, 'tagline')}</p>
+              <div className={styles.logo}>
+                <span className={styles.logoIcon}>✦</span>
+                <span>iSpan</span>
               </div>
             </div>
             <div className={styles.topActions}>
@@ -62,27 +54,40 @@ export default function LandingPage() {
 
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <span className={styles.eyebrow}>Enterprise-ready wellbeing for Indian schools</span>
-              <h2>{t(lang, 'loginTitle')}</h2>
-              <p>{t(lang, 'loginSub')}</p>
+              <span className={styles.eyebrow}>{t(lang, 'subtitle')}</span>
+              <h1>{t(lang, 'inspiring')}</h1>
+              <p className={styles.heroDesc}>{t(lang, 'inspiringDesc')}</p>
               <div className={styles.heroPills}>
-                <span>Student learning</span>
-                <span>Parent visibility</span>
-                <span>School analytics</span>
-                <span>Role-based access</span>
+                <span>🧠 {t(lang, 'pillarPsychology')}</span>
+                <span>💪 {t(lang, 'pillarPhysio')}</span>
+                <span>🍎 {t(lang, 'pillarNutrition')}</span>
+                <span>🏋️ {t(lang, 'pillarStrength')}</span>
+              </div>
+              <div className={styles.heroStats}>
+                <div className={styles.heroStat}>
+                  <strong>10,000+</strong>
+                  <span>Students</span>
+                </div>
+                <div className={styles.heroStat}>
+                  <strong>50+</strong>
+                  <span>Schools</span>
+                </div>
+                <div className={styles.heroStat}>
+                  <strong>4</strong>
+                  <span>Pillars</span>
+                </div>
               </div>
             </div>
 
             <div className={styles.heroCard}>
-              <h3>{t(lang, 'loginTitle')}</h3>
-              <p className={styles.heroSub}>{t(lang, 'enterprise')}</p>
+              <div className={styles.loginHeader}>
+                <h3>{t(lang, 'loginTitle')}</h3>
+                <p>{t(lang, 'loginSub')}</p>
+              </div>
 
               <div className={styles.field}>
                 <label>{t(lang, 'role')}</label>
-                <select value={role} onChange={(e) => {
-                  setRole(e.target.value);
-                  setEmail(demoAccounts[e.target.value]?.email || '');
-                }}>
+                <select value={role} onChange={(e) => { setRole(e.target.value); setEmail(demoAccounts[e.target.value]?.email || ''); }}>
                   <option value="student">{t(lang, 'student')}</option>
                   <option value="admin">{t(lang, 'admin')}</option>
                   <option value="parent">{t(lang, 'parent')}</option>
@@ -102,10 +107,10 @@ export default function LandingPage() {
               <details className={styles.demoToggle}>
                 <summary>{t(lang, 'demoCreds')}</summary>
                 <div className={styles.demoAccess}>
-                  <strong>{t(lang, 'schoolId')}:</strong> SCH-101<br />
-                  <strong>Admin:</strong> school@mindwell.app / demo123<br />
-                  <strong>Student:</strong> student1@mindwell.app / demo123<br />
-                  <strong>Parent:</strong> parent@mindwell.app / demo123
+                  <strong>{t(lang, 'schoolId')}:</strong> ISP-001<br />
+                  <strong>Admin:</strong> admin@ispan.in / demo123<br />
+                  <strong>Student:</strong> student1@ispan.in / demo123<br />
+                  <strong>Parent:</strong> parent@ispan.in / demo123
                 </div>
               </details>
             </div>
@@ -113,31 +118,79 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Why schools choose MindWell */}
-      <section className={styles.whySection}>
+      {/* 4 Pillars */}
+      <section className={styles.pillarsSection}>
         <div className={styles.pageWidth}>
-          <h2>Why schools choose MindWell</h2>
-          <p className={styles.whySub}>Clear, trustworthy, scalable</p>
-          <div className={styles.whyGrid}>
-            <div className={styles.whyCard}>
-              <strong>Students</strong>
-              Engaging video learning with progress, badges, and quick wins.
+          <div className={styles.sectionHeader}>
+            <h2>{t(lang, 'ourPillars')}</h2>
+            <p>{t(lang, 'pillarSubtitle')}</p>
+          </div>
+          <div className={styles.pillarsGrid}>
+            {pillars.map((pillar) => (
+              <div key={pillar.id} className={styles.pillarCard}>
+                <span className={styles.pillarIcon}>{pillar.icon}</span>
+                <h3>{pillar.label}</h3>
+                <p>{pillar.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* For whom */}
+      <section className={styles.forSection}>
+        <div className={styles.pageWidth}>
+          <div className={styles.forGrid}>
+            <div className={styles.forCard}>
+              <div className={styles.forIcon}>🎓</div>
+              <h3>{t(lang, 'forStudents')}</h3>
+              <p>{t(lang, 'studentsDesc')}</p>
             </div>
-            <div className={styles.whyCard}>
-              <strong>Parents</strong>
-              Privacy-safe milestones and supportive guidance.
+            <div className={styles.forCard}>
+              <div className={styles.forIcon}>👩‍🏫</div>
+              <h3>{t(lang, 'forTeachers')}</h3>
+              <p>{t(lang, 'teachersDesc')}</p>
             </div>
-            <div className={styles.whyCard}>
-              <strong>Schools</strong>
-              Class-wise reporting and role-based access.
-            </div>
-            <div className={styles.whyCard}>
-              <strong>Enterprise</strong>
-              Built to scale across multiple schools and campuses.
+            <div className={styles.forCard}>
+              <div className={styles.forIcon}>👪</div>
+              <h3>{t(lang, 'forParents')}</h3>
+              <p>{t(lang, 'parentsDesc')}</p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Mission */}
+      <section className={styles.missionSection}>
+        <div className={styles.pageWidth}>
+          <div className={styles.missionContent}>
+            <h2>{t(lang, 'holistic')}</h2>
+            <p>{t(lang, 'holisticDesc')}</p>
+            <div className={styles.missionCta}>
+              <button className={styles.primaryBtn} onClick={handleLogin}>{t(lang, 'getStarted')}</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.pageWidth}>
+          <div className={styles.footerInner}>
+            <div className={styles.footerBrand}>
+              <div className={styles.logo}>
+                <span className={styles.logoIcon}>✦</span>
+                <span>iSpan</span>
+              </div>
+              <p>India&apos;s first integrated wellness studio</p>
+            </div>
+            <div className={styles.footerMeta}>
+              <span>Bangalore, India</span>
+              <span>Mon–Sat: 9am–7pm</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

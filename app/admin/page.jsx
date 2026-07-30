@@ -1,170 +1,208 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import StatCard from '@/components/StatCard';
-import ClassTable from '@/components/ClassTable';
-import QuickActions from '@/components/QuickActions';
+import KPICard from '@/components/KPICard';
+import PillarBadge from '@/components/PillarBadge';
+import ProgressBar from '@/components/ProgressBar';
+import ActivityItem from '@/components/ActivityItem';
 import { DashboardSkeleton } from '@/components/Skeleton';
 import Toast from '@/components/Toast';
-import { students, videos } from '@/lib/data';
-import { t } from '@/lib/strings';
-import styles from '@/styles/dashboard.module.css';
+import { students, sessions, pillars, pillarColors, recentActivity, getStatus } from '@/lib/data';
+import styles from '@/styles/admin.module.css';
 
-// Generate class-wise data from student data
-function buildClassData(progressMap) {
-  const classMap = {};
-  students.forEach((s) => {
-    if (!classMap[s.className]) {
-      classMap[s.className] = { name: `Grade ${s.className}`, students: 0, completed: 0, inProgress: 0, totalTime: 0 };
-    }
-    const cls = classMap[s.className];
-    cls.students++;
-    const prog = progressMap[s.id] || {};
-    const done = Object.values(prog).filter(Boolean).length;
-    cls.completed += done;
-    cls.inProgress += Object.keys(prog).length - done;
-  });
-
-  return Object.values(classMap).map((cls) => {
-    const totalPossible = cls.students * videos.length;
-    const completedPct = totalPossible ? Math.round((cls.completed / totalPossible) * 100) : 0;
-    const inProgressPct = totalPossible ? Math.round((cls.inProgress / totalPossible) * 100) : 0;
-    // Fake avg time for demo
-    const avgMin = Math.round(12 + Math.random() * 20);
+function buildPillarStats() {
+  return pillars.map((p) => {
+    const pillarSessions = sessions.filter((s) => s.pillar === p.id);
+    const completed = pillarSessions.filter((s) => s.completed).length;
+    const total = pillarSessions.length || 1;
+    const completion = Math.round((completed / total) * 100);
+    // Fake trends for demo
+    const trends = ['↑ 12%', '↑ 8%', '↑ 15%', '↑ 5%'];
+    const trendIdx = pillars.indexOf(p);
     return {
-      name: cls.name,
-      students: cls.students,
-      completed: completedPct,
-      inProgress: inProgressPct,
-      avgTime: `${avgMin} min`,
+      ...p,
+      sessions: total,
+      completion,
+      trend: trends[trendIdx],
+      status: getStatus(completion),
     };
   });
 }
 
-export default function AdminDashboard({ lang = 'en' }) {
+function buildClassBreakdown() {
+  const classMap = {};
+  students.forEach((s) => {
+    if (!classMap[s.className]) {
+      classMap[s.className] = { name: `Grade ${s.className}`, students: 0, pillars: {} };
+    }
+    const cls = classMap[s.className];
+    cls.students++;
+    Object.entries(s.pillarProgress).forEach(([pid, pct]) => {
+      if (!cls.pillars[pid]) cls.pillars[pid] = [];
+      cls.pillars[pid].push(pct);
+    });
+  });
+
+  return Object.values(classMap).map((cls) => {
+    const pillarAvgs = {};
+    Object.entries(cls.pillars).forEach(([pid, pcts]) => {
+      pillarAvgs[pid] = Math.round(pcts.reduce((a, b) => a + b, 0) / pcts.length);
+    });
+    const allPcts = Object.values(pillarAvgs);
+    const avg = allPcts.length ? Math.round(allPcts.reduce((a, b) => a + b, 0) / allPcts.length) : 0;
+    return { ...cls, pillarAvgs, avg };
+  });
+}
+
+export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
-  const [selectedGrade, setSelectedGrade] = useState('All');
   const [toast, setToast] = useState(null);
 
-  // Simulate loading
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 800);
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setLoading(false), 700);
+    return () => clearTimeout(t);
   }, []);
 
-  // Demo progress data
-  const progressMap = useMemo(() => {
-    const map = {};
-    students.forEach((s) => { map[s.id] = { ...s.progress }; });
-    return map;
-  }, []);
+  const pillarStats = useMemo(() => buildPillarStats(), []);
+  const classBreakdown = useMemo(() => buildClassBreakdown(), []);
+  const totalStudents = students.length;
+  const totalSessions = sessions.filter((s) => s.completed).length;
+  const avgWellness = Math.round(
+    students.reduce((acc, s) => {
+      const vals = Object.values(s.pillarProgress);
+      return acc + vals.reduce((a, b) => a + b, 0) / vals.length;
+    }, 0) / students.length
+  );
+  const activeThisWeek = Math.round(totalStudents * 0.72);
 
-  const classData = useMemo(() => buildClassData(progressMap), [progressMap]);
+  const handleExport = () => setToast('Report exported successfully');
 
-  // Filter by grade
-  const filteredClasses = useMemo(() => {
-    if (selectedGrade === 'All') return classData;
-    return classData.filter((c) => c.name.includes(selectedGrade));
-  }, [classData, selectedGrade]);
-
-  // KPI stats
-  const stats = useMemo(() => {
-    const totalStudents = students.length;
-    const watchedByStudent = students.map(
-      (u) => Object.values(progressMap[u.id] || {}).filter(Boolean).length
-    );
-    const totalWatched = watchedByStudent.reduce((a, b) => a + b, 0);
-    const totalPossible = totalStudents * videos.length;
-    const completion = totalPossible ? Math.round((totalWatched / totalPossible) * 100) : 0;
-    // Fake "this week active" for demo
-    const thisWeekActive = Math.round(totalStudents * 0.72);
-    return { totalStudents, totalWatched, completion, thisWeekActive };
-  }, [progressMap]);
-
-  const handleExport = () => {
-    setToast(lang === 'hi' ? 'रिपोर्ट डाउनलोड हो गई' : 'Report downloaded');
-  };
-
-  if (loading) {
-    return <DashboardSkeleton />;
-  }
+  if (loading) return <DashboardSkeleton />;
 
   return (
     <>
       {/* Header */}
       <div className={styles.header}>
         <div>
-          <h2>{lang === 'hi' ? `वापसी, ${schoolName}` : `Welcome back, Greenfield Academy`}</h2>
-          <p>{lang === 'hi' ? 'आज आपके स्कूल की wellbeing स्थिति' : 'Here\'s what\'s happening across your school today'}</p>
+          <h1>Welcome back, iSpan School</h1>
+          <p>Here&apos;s what&apos;s happening across your school today</p>
         </div>
         <button className={styles.exportBtn} onClick={handleExport}>
-          {lang === 'hi' ? 'रिपोर्ट एक्सपोर्ट' : 'Export Report'}
+          📥 Export Report
         </button>
       </div>
 
-      {/* 4 KPI cards */}
-      <div className={styles.statGrid}>
-        <StatCard
-          icon="👥"
-          label={t(lang, 'enrolled')}
-          value={stats.totalStudents.toLocaleString()}
-          trend={`↑ 12% ${t(lang, 'thisWeek')}`}
-        />
-        <StatCard
-          icon="✅"
-          label={lang === 'hi' ? 'पूर्णता दर' : 'Completion Rate'}
-          value={`${stats.completion}%`}
-          trend={`↑ 5% ${t(lang, 'thisWeek')}`}
-          variant="teal"
-        />
-        <StatCard
-          icon="▶️"
-          label={t(lang, 'watchedVideos')}
-          value={stats.totalWatched.toLocaleString()}
-          trend={`↑ 8% ${t(lang, 'thisWeek')}`}
-        />
-        <StatCard
-          icon="🔥"
-          label={lang === 'hi' ? 'इस हफ्ते सक्रिय' : 'This Week Active'}
-          value={stats.thisWeekActive.toLocaleString()}
-          trend={`${Math.round(stats.thisWeekActive / stats.totalStudents * 100)}% of enrolled`}
-        />
+      {/* KPI cards */}
+      <div className={styles.kpiRow}>
+        <KPICard icon="👥" label="Students Enrolled" value={totalStudents.toLocaleString()} trend="↑ 12% this week" />
+        <KPICard icon="💚" label="Wellness Score" value={`${avgWellness}%`} trend="↑ 5% this week" variant="variant-green" />
+        <KPICard icon="✅" label="Sessions Completed" value={totalSessions.toLocaleString()} trend="↑ 8% this week" variant="variant-blue" />
+        <KPICard icon="🔥" label="Active This Week" value={activeThisWeek.toLocaleString()} trend={`${Math.round(activeThisWeek / totalStudents * 100)}% of enrolled`} variant="variant-gold" />
       </div>
 
-      {/* Class-wise progress table */}
+      {/* Pillar Performance */}
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
-          <div>
-            <h3>{lang === 'hi' ? 'कक्षा-वार प्रगति' : 'Class-wise Progress'}</h3>
-          </div>
-          <div className={styles.filters}>
-            <select
-              className={styles.gradeSelect}
-              value={selectedGrade}
-              onChange={(e) => setSelectedGrade(e.target.value)}
-            >
-              <option value="All">{lang === 'hi' ? 'सभी ग्रेड' : 'All Grades'}</option>
-              <option value="4">Grade 4</option>
-              <option value="5">Grade 5</option>
-              <option value="6">Grade 6</option>
-              <option value="7">Grade 7</option>
-              <option value="8">Grade 8</option>
-            </select>
-          </div>
+          <h2>Pillar Performance</h2>
         </div>
-        <ClassTable classes={filteredClasses} lang={lang} />
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Pillar</th>
+              <th>Sessions</th>
+              <th>Completion</th>
+              <th>Trend</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pillarStats.map((p) => (
+              <tr key={p.id}>
+                <td className={styles.pillarName}>
+                  <span className={styles.pillarDot} style={{ background: p.color }} />
+                  {p.icon} {p.label}
+                </td>
+                <td>{p.sessions}</td>
+                <td>
+                  <div className={styles.progressCell}>
+                    <span>{p.completion}%</span>
+                    <ProgressBar value={p.completion} color={p.color} />
+                  </div>
+                </td>
+                <td className={styles.trend}>{p.trend}</td>
+                <td><PillarBadge value={p.completion} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      {/* Quick actions */}
-      <div>
-        <h3 className={styles.sectionTitle}>{lang === 'hi' ? 'त्वरित कार्य' : 'Quick Actions'}</h3>
-        <QuickActions lang={lang} />
+      {/* Class-wise Breakdown */}
+      <div className={styles.panel}>
+        <div className={styles.panelHeader}>
+          <h2>Class-wise Breakdown</h2>
+          <select className={styles.filter}>
+            <option>All Grades</option>
+            <option>Grade 4</option>
+            <option>Grade 5</option>
+            <option>Grade 6</option>
+            <option>Grade 7</option>
+            <option>Grade 8</option>
+          </select>
+        </div>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Students</th>
+                {pillars.map((p) => (
+                  <th key={p.id}>
+                    <span className={styles.thPillar}>
+                      <span className={styles.thDot} style={{ background: p.color }} />
+                      {p.label}
+                    </span>
+                  </th>
+                ))}
+                <th>Avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              {classBreakdown.map((cls) => (
+                <tr key={cls.name}>
+                  <td className={styles.className}>{cls.name}</td>
+                  <td>{cls.students}</td>
+                  {pillars.map((p) => (
+                    <td key={p.id}>
+                      <div className={styles.progressCell}>
+                        <span>{cls.pillarAvgs[p.id] || 0}%</span>
+                        <ProgressBar value={cls.pillarAvgs[p.id] || 0} color={p.color} />
+                      </div>
+                    </td>
+                  ))}
+                  <td>
+                    <strong className={styles.avgCell}>{cls.avg}%</strong>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* Toast */}
+      {/* Activity Feed */}
+      <div className={styles.panel}>
+        <div className={styles.panelHeader}>
+          <h2>Recent Activity</h2>
+        </div>
+        <div className={styles.activityList}>
+          {recentActivity.map((item) => (
+            <ActivityItem key={item.id} icon={item.icon} text={item.text} time={item.time} />
+          ))}
+        </div>
+      </div>
+
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </>
   );
 }
-
-const schoolName = 'Greenfield Academy';

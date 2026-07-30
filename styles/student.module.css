@@ -1,0 +1,218 @@
+.heroCard {
+  background: linear-gradient(135deg, var(--brand-blue), #1a4080);
+  color: white;
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.heroContent h1 {
+  font: var(--font-h1);
+  color: white;
+  margin: 8px 0;
+}
+
+.heroContent p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 20px;
+}
+
+.heroEyebrow {
+  font: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.heroBtn {
+  padding: 12px 24px;
+  border-radius: var(--radius-btn);
+  border: none;
+  background: white;
+  color: var(--brand-blue);
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.heroBtn:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.heroVisual {
+  flex-shrink: 0;
+}
+
+.heroBadge {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem;
+}
+
+.sectionHeader {
+  margin-top: 8px;
+}
+
+.sectionHeader h2 {
+  font: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.trackGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--card-gap);
+}
+
+.trackCard {
+  background: var(--surface-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.trackComplete {
+  border-color: var(--status-green);
+}
+
+.trackHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.trackIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.trackHeader h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.trackMeta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.trackProgress {
+  margin-bottom: 14px;
+}
+
+.trackProgressInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.trackProgressInfo span {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.trackBtn {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius-btn);
+  border: 1px solid;
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.trackBtn:hover {
+  background: var(--surface-gray);
+}
+
+.trackDone {
+  text-align: center;
+  padding: 10px;
+  border-radius: var(--radius-btn);
+  background: rgba(34, 197, 94, 0.08);
+  color: var(--status-green);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.streaksCard {
+  background: var(--surface-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.streakInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.streakCount {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--brand-gold);
+}
+
+.streakInfo strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.streakInfo span {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.badgesRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badgeChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--surface-gray);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .heroCard {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .trackGrid {
+    grid-template-columns: 1fr;
+  }
+}
