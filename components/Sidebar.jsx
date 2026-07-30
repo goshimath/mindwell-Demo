@@ -9,7 +9,7 @@ import styles from '@/styles/sidebar.module.css';
 const navConfig = {
   admin: [
     { id: 'dashboard', label: 'Dashboard', href: '/admin', icon: '📊' },
-    { id: 'students', label: 'Students', href: '/admin', icon: '👥' },
+    { id: 'students', label: 'Students', href: '/admin/students', icon: '👥' },
     {
       id: 'wellbeing',
       label: 'Wellbeing Program',
@@ -21,8 +21,8 @@ const navConfig = {
         { id: 'physiotherapy', label: 'Physiotherapy', href: '/admin', color: '#2B5EA7' },
       ],
     },
-    { id: 'reports', label: 'Reports', href: '/admin', icon: '📈' },
-    { id: 'settings', label: 'Settings', href: '/admin', icon: '⚙️' },
+    { id: 'reports', label: 'Reports', href: '/admin/reports', icon: '📈' },
+    { id: 'settings', label: 'Settings', href: '/admin/settings', icon: '⚙️' },
   ],
   student: [
     { id: 'dashboard', label: 'Dashboard', href: '/student', icon: '📊' },
@@ -31,27 +31,27 @@ const navConfig = {
       label: 'Wellbeing Program',
       icon: '🧘',
       children: [
-        { id: 'emotional', label: 'Emotional Health', href: '/student', color: '#9B8EC4' },
-        { id: 'nutrition', label: 'Nutrition', href: '/student', color: '#7CB87A' },
-        { id: 'snc', label: 'Strength & Conditioning', href: '/student', color: '#C4A84D' },
-        { id: 'physiotherapy', label: 'Physiotherapy', href: '/student', color: '#2B5EA7' },
+        { id: 'emotional', label: 'Emotional Health', href: '/student/wellbeing', color: '#9B8EC4' },
+        { id: 'nutrition', label: 'Nutrition', href: '/student/wellbeing', color: '#7CB87A' },
+        { id: 'snc', label: 'Strength & Conditioning', href: '/student/wellbeing', color: '#C4A84D' },
+        { id: 'physiotherapy', label: 'Physiotherapy', href: '/student/wellbeing', color: '#2B5EA7' },
       ],
     },
-    { id: 'progress', label: 'Progress', href: '/student', icon: '📈' },
-    { id: 'achievements', label: 'Achievements', href: '/student', icon: '🏅' },
+    { id: 'progress', label: 'Progress', href: '/student/progress', icon: '📈' },
+    { id: 'achievements', label: 'Achievements', href: '/student/achievements', icon: '🏅' },
   ],
   parent: [
     { id: 'dashboard', label: 'Dashboard', href: '/parent', icon: '📊' },
-    { id: 'child-progress', label: 'Child Progress', href: '/parent', icon: '👶' },
-    { id: 'resources', label: 'Resources', href: '/parent', icon: '📚' },
-    { id: 'milestones', label: 'Milestones', href: '/parent', icon: '🏅' },
+    { id: 'child-progress', label: 'Child Progress', href: '/parent/progress', icon: '👶' },
+    { id: 'resources', label: 'Resources', href: '/parent/resources', icon: '📚' },
+    { id: 'milestones', label: 'Milestones', href: '/parent/milestones', icon: '🏅' },
   ],
   'super-admin': [
     { id: 'dashboard', label: 'Dashboard', href: '/super-admin', icon: '📊' },
-    { id: 'schools', label: 'Schools', href: '/super-admin', icon: '🏫' },
-    { id: 'subscriptions', label: 'Subscriptions', href: '/super-admin', icon: '💳' },
-    { id: 'revenue', label: 'Revenue', href: '/super-admin', icon: '📈' },
-    { id: 'settings', label: 'Settings', href: '/super-admin', icon: '⚙️' },
+    { id: 'schools', label: 'Schools', href: '/super-admin/schools', icon: '🏫' },
+    { id: 'subscriptions', label: 'Subscriptions', href: '/super-admin/subscriptions', icon: '💳' },
+    { id: 'revenue', label: 'Revenue', href: '/super-admin/revenue', icon: '📈' },
+    { id: 'settings', label: 'Settings', href: '/super-admin/settings', icon: '⚙️' },
   ],
 };
 
