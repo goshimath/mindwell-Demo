@@ -103,7 +103,16 @@ export default function LandingPage() {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               {error && <div className={styles.error}>{error}</div>}
-              <button className={styles.primaryBtn} onClick={handleLogin}>{t(lang, 'signIn')}</button>
+              <button
+                className={styles.primaryBtn}
+                onClick={handleLogin}
+                style={{ width: '100%', border: 'none', borderRadius: '12px', padding: '14px', background: '#00897b', color: 'white', fontWeight: 800, fontSize: '0.95rem', cursor: 'pointer', marginTop: '4px' }}
+              >
+                {t(lang, 'signIn') || 'Sign in'}
+              </button>
+              <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                <span style={{ color: '#6B7280', fontSize: '0.82rem', cursor: 'pointer' }}>Forgot password?</span>
+              </div>
 
               <details className={styles.demoToggle}>
                 <summary>{t(lang, 'demoCreds')}</summary>
