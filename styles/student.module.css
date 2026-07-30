@@ -29,103 +29,167 @@
 .tab:hover { background: var(--surface-gray); }
 .tabActive { background: var(--brand-blue); color: white; }
 
-/* Greeting row */
-.greetingRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  flex-wrap: wrap;
+/* Hero — colorful with floating decorations */
+.heroWrap {
+  background: linear-gradient(135deg, #2B5EA7 0%, #1a6b5a 40%, #0d8b7a 70%, #9B8EC4 100%);
+  border-radius: 20px;
+  padding: 28px 32px 20px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(43, 94, 167, 0.3);
 }
 
-.greetingTitle { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin: 0; }
-.wave { display: inline-block; animation: wave 1.5s ease-in-out infinite; }
+.heroDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.deco1, .deco2, .deco3, .deco4, .deco5, .deco6 {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.15;
+  animation: floatDeco 4s ease-in-out infinite;
+}
+.deco1 { top: 10%; right: 8%; animation-delay: 0s; }
+.deco2 { top: 60%; right: 15%; animation-delay: 0.7s; font-size: 1.4rem; }
+.deco3 { top: 20%; right: 25%; animation-delay: 1.4s; font-size: 1.2rem; }
+.deco4 { bottom: 15%; right: 5%; animation-delay: 2.1s; }
+.deco5 { top: 50%; left: 50%; animation-delay: 0.3s; font-size: 1rem; }
+.deco6 { bottom: 10%; left: 60%; animation-delay: 1.8s; font-size: 1.3rem; }
+
+@keyframes floatDeco {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
+  50% { transform: translateY(-8px) rotate(10deg); opacity: 0.22; }
+}
+
+.heroInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroLeft { flex: 1; }
+
+.heroGreeting {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}
+
+.wave {
+  display: inline-block;
+  animation: wave 1.5s ease-in-out infinite;
+}
+
 @keyframes wave {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(20deg); }
   75% { transform: rotate(-10deg); }
 }
-.greetingSub { color: var(--text-secondary); margin: 4px 0 0; font-size: 0.95rem; }
 
-.greetingChips {
+.heroSub {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 6px 0 14px;
+  font-size: 0.95rem;
+}
+
+.heroChips {
   display: flex;
   gap: 8px;
 }
-.chip {
+
+.heroChip {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 7px 14px;
   border-radius: 999px;
-  background: var(--surface-white);
-  border: 1px solid var(--border);
-  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  font-size: 0.82rem;
   font-weight: 700;
-  color: var(--text-primary);
-  white-space: nowrap;
-}
-
-/* Current session card */
-.sessionCard {
-  background: linear-gradient(135deg, #2B5EA7, #1a6b5a);
   color: white;
-  border-radius: 16px;
-  padding: 22px 26px;
-  box-shadow: 0 6px 24px rgba(43, 94, 167, 0.25);
 }
 
-.sessionLabel {
-  font-size: 0.68rem;
+/* Mini session card inside hero */
+.heroRight {
+  flex: 0 0 320px;
+}
+
+.heroSessionMini {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.miniLabel {
+  font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 10px;
 }
 
-.sessionRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.sessionIcon { font-size: 1.8rem; }
-
-.sessionInfo strong { display: block; font-size: 1.05rem; color: white; }
-.sessionInfo span { font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); }
-
-.sessionProgress {
+.miniRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 16px;
+  margin: 8px 0;
 }
-.sessionProgress > div { flex: 1; background: rgba(255, 255, 255, 0.2); }
-.sessionProgress span { font-weight: 800; font-size: 0.9rem; }
+.miniRow span:first-child { font-size: 1.5rem; }
+.miniRow strong { display: block; font-size: 0.9rem; color: white; }
+.miniRow span:last-child { font-size: 0.75rem; color: rgba(255, 255, 255, 0.7); }
 
-.sessionBtn {
-  display: inline-flex;
+.miniProgress {
+  display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  margin-bottom: 12px;
+}
+.miniBar {
+  flex: 1;
+  height: 6px;
   border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+.miniFill {
+  width: 37%;
+  height: 100%;
+  background: white;
+  border-radius: inherit;
+}
+.miniProgress span { font-weight: 800; font-size: 0.82rem; }
+
+.miniBtn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
   background: white;
   color: #2B5EA7;
   font-weight: 800;
-  font-size: 0.92rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.sessionBtn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
-
-/* Progress summary */
-.progressSummary {
-  text-align: center;
   font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.miniBtn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+
+.heroSummary {
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Section */

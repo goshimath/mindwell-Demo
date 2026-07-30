@@ -60,40 +60,44 @@ export default function StudentDashboard() {
       {/* OVERVIEW TAB */}
       {activeTab === 'overview' && (
         <>
-          {/* Greeting + streak/badges chips */}
-          <div className={styles.greetingRow}>
-            <div className={styles.greetingLeft}>
-              <h1 className={styles.greetingTitle}>Hi Aarav! <span className={styles.wave}>👋</span></h1>
-              <p className={styles.greetingSub}>Let&apos;s continue your wellbeing journey.</p>
+          {/* Hero — colorful greeting with illustrations */}
+          <div className={styles.heroWrap}>
+            <div className={styles.heroDecor}>
+              <span className={styles.deco1}>🧠</span>
+              <span className={styles.deco2}>💪</span>
+              <span className={styles.deco3}>🍎</span>
+              <span className={styles.deco4}>🧘</span>
+              <span className={styles.deco5}>⭐</span>
+              <span className={styles.deco6}>🌿</span>
             </div>
-            <div className={styles.greetingChips}>
-              <span className={styles.chip}>🔥 3-day streak</span>
-              <span className={styles.chip}>🏅 12 badges</span>
-            </div>
-          </div>
-
-          {/* Current session card */}
-          <div className={styles.sessionCard}>
-            <div className={styles.sessionLabel}>NOW PLAYING</div>
-            <div className={styles.sessionRow}>
-              <span className={styles.sessionIcon}>🧠</span>
-              <div className={styles.sessionInfo}>
-                <strong>Emotional Health — Building Resilience</strong>
-                <span>Session 3 of 8 · 12 min</span>
+            <div className={styles.heroInner}>
+              <div className={styles.heroLeft}>
+                <h1 className={styles.heroGreeting}>Hi Aarav! <span className={styles.wave}>👋</span></h1>
+                <p className={styles.heroSub}>Let&apos;s continue your wellbeing journey.</p>
+                <div className={styles.heroChips}>
+                  <span className={styles.heroChip}>🔥 3-day streak</span>
+                  <span className={styles.heroChip}>🏅 12 badges</span>
+                </div>
+              </div>
+              <div className={styles.heroRight}>
+                <div className={styles.heroSessionMini}>
+                  <span className={styles.miniLabel}>NOW PLAYING</span>
+                  <div className={styles.miniRow}>
+                    <span>🧠</span>
+                    <div>
+                      <strong>Emotional Health</strong>
+                      <span>Session 3 of 8 · 12 min</span>
+                    </div>
+                  </div>
+                  <div className={styles.miniProgress}>
+                    <div className={styles.miniBar}><div className={styles.miniFill} /></div>
+                    <span>37%</span>
+                  </div>
+                  <button className={styles.miniBtn}>▶ Continue</button>
+                </div>
               </div>
             </div>
-            <div className={styles.sessionProgress}>
-              <ProgressBar value={37} color="white" />
-              <span>37%</span>
-            </div>
-            <button className={styles.sessionBtn} onClick={() => setActiveTab('wellbeing')}>
-              ▶ Continue Learning
-            </button>
-          </div>
-
-          {/* Progress summary */}
-          <div className={styles.progressSummary}>
-            <span>{overallProgress}% complete · {completedCount} of {totalVideos} videos done</span>
+            <div className={styles.heroSummary}>25% complete · 2 of 8 videos done</div>
           </div>
 
           {/* Browse by area */}
