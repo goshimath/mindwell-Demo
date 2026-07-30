@@ -30,7 +30,6 @@ export default function StudentDashboard() {
     return () => clearTimeout(t);
   }, []);
 
-  // IntersectionObserver for scroll-triggered animations
   useEffect(() => {
     if (loading) return;
     const observer = new IntersectionObserver(
@@ -43,11 +42,7 @@ export default function StudentDashboard() {
       },
       { threshold: 0.15 }
     );
-
-    Object.values(sectionRefs.current).forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
+    Object.values(sectionRefs.current).forEach((el) => { if (el) observer.observe(el); });
     return () => observer.disconnect();
   }, [loading]);
 
@@ -80,11 +75,7 @@ export default function StudentDashboard() {
           { id: 'progress', label: '📊 My Network' },
           { id: 'calendar', label: '📅 Book Expert' },
         ].map((tab) => (
-          <button
-            key={tab.id}
-            className={`${styles.tab} ${activeTab === tab.id ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
+          <button key={tab.id} className={`${styles.tab} ${activeTab === tab.id ? styles.tabActive : ''}`} onClick={() => setActiveTab(tab.id)}>
             {tab.label}
           </button>
         ))}
@@ -93,110 +84,39 @@ export default function StudentDashboard() {
       {/* OVERVIEW TAB */}
       {activeTab === 'overview' && (
         <>
-          {/* Hero — animated, colorful, feel-good */}
-          <div className={`${styles.heroWrap} ${styles.slideUp}`}>
-            {/* Floating decorations */}
-            <div className={styles.heroDecor}>
-              {[...Array(8)].map((_, i) => (
-                <span key={i} className={styles.floatingDot} style={{
-                  left: `${8 + i * 12}%`,
-                  top: `${15 + (i % 3) * 25}%`,
-                  animationDelay: `${i * 0.6}s`,
-                  width: `${6 + (i % 3) * 4}px`,
-                  height: `${6 + (i % 3) * 4}px`,
-                }} />
-              ))}
+          {/* Compact hero — thin professional welcome bar */}
+          <div className={`${styles.heroBar} ${styles.slideUp}`}>
+            <div className={styles.heroBarTop}>
+              <h1 className={styles.heroGreeting}>{getTimeGreeting()}, Aarav! 🌟</h1>
+              <span className={styles.heroStreak}>🔥 3-day streak</span>
             </div>
-
-            <div className={styles.heroInner}>
-              <div className={styles.heroLeft}>
-                <h1 className={styles.heroGreeting}>
-                  {getTimeGreeting()}, Aarav! <span className={styles.starBounce}>🌟</span>
-                </h1>
-                <p className={styles.heroEncourage}>
-                  You&apos;re on a <strong>3-day streak</strong>! Keep going — your next session is waiting.
-                </p>
-
-                {/* Session card with pillar border */}
-                <div className={`${styles.heroSession} ${styles.slideUpDelay}`}>
-                  <div className={styles.sessionPillarBorder} style={{ background: '#9B8EC4' }} />
-                  <div className={styles.sessionBody}>
-                    <span className={styles.sessionLabel}>▶ NOW PLAYING</span>
-                    <strong>Emotional Health — Building Resilience</strong>
-                    <span className={styles.sessionMeta}>Session 3 of 8 · 12 min</span>
-                    <div className={styles.sessionProgress}>
-                      <ProgressBar value={37} color="white" />
-                      <span>37%</span>
-                    </div>
-                    <button className={styles.sessionBtn}>▶ Continue Learning</button>
-                  </div>
-                </div>
+            <div className={styles.heroBarBottom}>
+              <div className={styles.sessionInline}>
+                <span className={styles.sessionLabel}>▶ NOW PLAYING</span>
+                <strong>Emotional Health — Building Resilience</strong>
+                <span className={styles.sessionMeta}>Session 3 of 8 · 12 min · 37%</span>
               </div>
-
-              {/* Mood card */}
-              <div className={`${styles.heroRight} ${styles.fadeInDelay}`}>
-                <div className={styles.moodCard}>
-                  <span className={styles.moodEmoji}>🧠</span>
-                  <strong>Current Mood</strong>
-                  <span className={styles.moodLabel}>Calm & Focused</span>
-                  <div className={styles.moodDots}>
-                    <span className={styles.moodDot} style={{ background: '#9B8EC4' }} />
-                    <span className={styles.moodDot} style={{ background: '#7CB87A' }} />
-                    <span className={styles.moodDot} style={{ background: '#C4A84D' }} />
-                    <span className={styles.moodDot} style={{ background: '#2B5EA7' }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Stat chips — colored pills */}
-            <div className={`${styles.statChips} ${styles.staggerIn}`}>
-              <span className={`${styles.statChip} ${styles.chipGold}`}>
-                <span>🔥</span>
-                <div>
-                  <strong>3</strong>
-                  <span>day streak</span>
-                </div>
-              </span>
-              <span className={`${styles.statChip} ${styles.chipBlue}`}>
-                <span>🏅</span>
-                <div>
-                  <strong>12</strong>
-                  <span>badges earned</span>
-                </div>
-              </span>
-              <span className={`${styles.statChip} ${styles.chipGreen}`}>
-                <span>📚</span>
-                <div>
-                  <strong>{completedCount}/{totalVideos}</strong>
-                  <span>videos done</span>
-                </div>
-              </span>
-              <span className={`${styles.statChip} ${styles.chipPurple}`}>
-                <span>⭐</span>
-                <div>
-                  <strong>{overallProgress}%</strong>
-                  <span>wellness score</span>
-                </div>
-              </span>
+              <button className={styles.heroBarBtn}>Continue Learning →</button>
             </div>
           </div>
 
-          {/* Browse by area — scroll-triggered */}
-          <div
-            ref={(el) => (sectionRefs.current.areas = el)}
-            data-section="areas"
-            className={`${styles.sectionAnimate} ${isVisible('areas') ? styles.visible : ''}`}
-          >
+          {/* Stat chips — outside hero, separate row */}
+          <div className={`${styles.statChips} ${styles.staggerIn}`}>
+            <span className={`${styles.statChip} ${styles.chipGold}`}>🔥 <strong>3</strong> day streak</span>
+            <span className={`${styles.statChip} ${styles.chipBlue}`}>🏅 <strong>12</strong> badges earned</span>
+            <span className={`${styles.statChip} ${styles.chipGreen}`}>📚 <strong>{completedCount}/{totalVideos}</strong> videos done</span>
+            <span className={`${styles.statChip} ${styles.chipPurple}`}>⭐ <strong>{overallProgress}%</strong> wellness score</span>
+          </div>
+
+          {/* Browse by area */}
+          <div ref={(el) => (sectionRefs.current.areas = el)} data-section="areas"
+            className={`${styles.sectionAnimate} ${isVisible('areas') ? styles.visible : ''}`}>
             <div className={styles.sectionHeader}><h2>BROWSE BY AREA</h2></div>
             <div className={styles.areaGrid}>
               {wellbeingAreas.map((area, i) => (
-                <button
-                  key={area.id}
-                  className={`${styles.areaCard} ${styles.hoverLift}`}
+                <button key={area.id} className={`${styles.areaCard} ${styles.hoverLift}`}
                   style={{ animationDelay: `${i * 0.1}s` }}
-                  onClick={() => { setSelectedArea(area.id); setActiveTab('wellbeing'); }}
-                >
+                  onClick={() => { setSelectedArea(area.id); setActiveTab('wellbeing'); }}>
                   <span className={styles.areaIcon}>{area.icon}</span>
                   <strong>{area.label}</strong>
                   <span className={styles.areaSub}>{area.subtitle}</span>
@@ -205,12 +125,9 @@ export default function StudentDashboard() {
             </div>
           </div>
 
-          {/* Trackers — scroll-triggered */}
-          <div
-            ref={(el) => (sectionRefs.current.trackers = el)}
-            data-section="trackers"
-            className={`${styles.sectionAnimate} ${isVisible('trackers') ? styles.visible : ''}`}
-          >
+          {/* Trackers */}
+          <div ref={(el) => (sectionRefs.current.trackers = el)} data-section="trackers"
+            className={`${styles.sectionAnimate} ${isVisible('trackers') ? styles.visible : ''}`}>
             <div className={styles.sectionHeader}><h2>MY TRACKERS</h2></div>
             <div className={styles.trackerGrid}>
               {trackers.map((t, i) => (
@@ -238,7 +155,9 @@ export default function StudentDashboard() {
           <div className={styles.areaFilter}>
             <button className={`${styles.filterChip} ${!selectedArea ? styles.filterActive : ''}`} onClick={() => setSelectedArea(null)}>All Areas</button>
             {wellbeingAreas.map((area) => (
-              <button key={area.id} className={`${styles.filterChip} ${selectedArea === area.id ? styles.filterActive : ''}`} onClick={() => setSelectedArea(area.id)} style={selectedArea === area.id ? { background: area.color, color: 'white', borderColor: area.color } : {}}>
+              <button key={area.id} className={`${styles.filterChip} ${selectedArea === area.id ? styles.filterActive : ''}`}
+                onClick={() => setSelectedArea(area.id)}
+                style={selectedArea === area.id ? { background: area.color, color: 'white', borderColor: area.color } : {}}>
                 {area.icon} {area.label}
               </button>
             ))}
@@ -275,7 +194,7 @@ export default function StudentDashboard() {
         </>
       )}
 
-      {/* PROGRESS TAB — Activity Graph */}
+      {/* PROGRESS TAB */}
       {activeTab === 'progress' && <ActivityGraph />}
 
       {/* CALENDAR TAB */}
@@ -288,7 +207,8 @@ export default function StudentDashboard() {
           {bookingSuccess && <div className={styles.bookingToast}>✅ Appointment booked successfully!</div>}
           <div className={styles.expertGrid}>
             {experts.map((expert) => (
-              <div key={expert.id} className={`${styles.expertCard} ${selectedExpert === expert.id ? styles.expertSelected : ''}`} onClick={() => setSelectedExpert(expert.id)}>
+              <div key={expert.id} className={`${styles.expertCard} ${selectedExpert === expert.id ? styles.expertSelected : ''}`}
+                onClick={() => setSelectedExpert(expert.id)}>
                 <div className={styles.expertAvatar} style={{ background: `${expert.color}15` }}><span>{expert.avatar}</span></div>
                 <div className={styles.expertInfo}>
                   <strong>{expert.name}</strong>
