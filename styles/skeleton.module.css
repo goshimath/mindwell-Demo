@@ -1,0 +1,79 @@
+.dashboardSkeleton {
+  display: grid;
+  gap: 16px;
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.dark {
+  background: linear-gradient(180deg, #121f3a, #0f172a);
+}
+
+.tableSkeleton {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.tableHeader,
+.tableRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.tableHeader {
+  border-bottom: 1px solid var(--border);
+}
+
+.tableRow {
+  border-bottom: 1px solid rgba(15, 31, 61, 0.04);
+}
+
+.line {
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.dark .line {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.tableSkeleton .line {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 31, 61, 0.06) 0%,
+    rgba(15, 31, 61, 0.1) 50%,
+    rgba(15, 31, 61, 0.06) 100%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

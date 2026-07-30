@@ -1,0 +1,49 @@
+.card {
+  padding: 18px;
+  border-radius: 20px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 32px rgba(15, 31, 61, 0.12);
+}
+
+.dark {
+  background: linear-gradient(180deg, #121f3a, #0f172a);
+}
+
+.teal {
+  background: linear-gradient(180deg, #0d7c6d, #0a6b5e);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.1rem;
+}
+
+.trend {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.label {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.value {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-top: 4px;
+  letter-spacing: -0.02em;
+}
