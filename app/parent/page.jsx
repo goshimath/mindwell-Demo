@@ -23,9 +23,9 @@ const childData = {
 };
 
 const resources = [
-  { icon: '📖', title: 'Understanding Your Child\'s Emotions', type: 'Guide' },
-  { icon: '🎧', title: 'Screen Time Balance Tips', type: 'Audio' },
-  { icon: '📋', title: 'Nutrition Checklist for Growing Kids', type: 'Download' },
+  { icon: '📖', title: 'Understanding Your Child\'s Emotions', type: 'Guide', color: '#9B8EC4' },
+  { icon: '🎧', title: 'Screen Time Balance Tips', type: 'Audio', color: '#2B5EA7' },
+  { icon: '📋', title: 'Nutrition Checklist for Growing Kids', type: 'Download', color: '#7CB87A' },
 ];
 
 export default function ParentDashboard() {
@@ -39,22 +39,38 @@ export default function ParentDashboard() {
   if (loading) return <CardSkeleton count={4} />;
 
   return (
-    <>
+    <div className={styles.parentWrap}>
       {/* Greeting */}
       <div className={styles.greeting}>
         <h1>Welcome, Parent</h1>
         <p>{childData.name}&apos;s Wellness Journey — {childData.className}</p>
       </div>
 
-      {/* Child overview metrics */}
-      <div className={styles.kpiRow}>
-        <KPICard icon="✅" label="Sessions Completed" value={childData.sessionsCompleted} />
-        <KPICard icon="🔥" label="Current Streak" value={`${childData.streak} days`} variant="variant-gold" />
-        <KPICard icon="💚" label="Wellness Score" value={`${childData.wellnessScore}%`} variant="variant-green" />
-        <KPICard icon="🏅" label="Badges Earned" value={childData.badges} variant="variant-purple" />
+      {/* Metric cards — big numbers, soft colors */}
+      <div className={styles.metricGrid}>
+        <div className={`${styles.metricCard} ${styles.metricGreen}`}>
+          <span className={styles.metricIcon}>✅</span>
+          <span className={styles.metricValue}>{childData.sessionsCompleted}</span>
+          <span className={styles.metricLabel}>sessions completed</span>
+        </div>
+        <div className={`${styles.metricCard} ${styles.metricGold}`}>
+          <span className={styles.metricIcon}>🔥</span>
+          <span className={styles.metricValue}>{childData.streak}</span>
+          <span className={styles.metricLabel}>day streak</span>
+        </div>
+        <div className={`${styles.metricCard} ${styles.metricBlue}`}>
+          <span className={styles.metricIcon}>💚</span>
+          <span className={styles.metricValue}>{childData.wellnessScore}%</span>
+          <span className={styles.metricLabel}>wellness score</span>
+        </div>
+        <div className={`${styles.metricCard} ${styles.metricPurple}`}>
+          <span className={styles.metricIcon}>🏅</span>
+          <span className={styles.metricValue}>{childData.badges}</span>
+          <span className={styles.metricLabel}>badges earned</span>
+        </div>
       </div>
 
-      {/* Learning summary — pillar progress */}
+      {/* Learning summary */}
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
           <h2>What {childData.name} is learning</h2>
@@ -65,13 +81,13 @@ export default function ParentDashboard() {
             return (
               <div key={p.id} className={styles.pillarRow}>
                 <div className={styles.pillarInfo}>
-                  <span className={styles.pillarIcon} style={{ background: `${pillarColors[p.id]}15` }}>
+                  <span className={styles.pillarIcon} style={{ background: `${pillarColors[p.id]}12` }}>
                     {p.icon}
                   </span>
                   <span className={styles.pillarLabel}>{p.label}</span>
                 </div>
                 <div className={styles.pillarProgress}>
-                  <span>{progress}%</span>
+                  <span className={styles.pillarPct}>{progress}%</span>
                   <ProgressBar value={progress} color={pillarColors[p.id]} />
                 </div>
               </div>
@@ -93,8 +109,8 @@ export default function ParentDashboard() {
         </div>
         <div className={styles.resourceGrid}>
           {resources.map((r) => (
-            <div key={r.title} className={styles.resourceCard}>
-              <span className={styles.resourceIcon}>{r.icon}</span>
+            <div key={r.title} className={styles.resourceCard} style={{ borderColor: `${r.color}30` }}>
+              <span className={styles.resourceIcon} style={{ background: `${r.color}10` }}>{r.icon}</span>
               <div>
                 <strong>{r.title}</strong>
                 <span>{r.type}</span>
@@ -121,6 +137,6 @@ export default function ParentDashboard() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

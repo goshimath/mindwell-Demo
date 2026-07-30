@@ -1,21 +1,72 @@
+.parentWrap {
+  display: grid;
+  gap: 16px;
+  background: linear-gradient(180deg, #f0f4f8 0%, #f8fafc 100%);
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  border-radius: 12px;
+  padding: 4px;
+}
+
 .greeting h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .greeting p {
   color: var(--text-secondary);
-  margin-top: 4px;
-  font-size: 0.9rem;
+  margin: 4px 0 0;
+  font-size: 0.88rem;
 }
 
-.kpiRow {
+/* Metric cards — big numbers, soft pastel backgrounds */
+.metricGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
+.metricCard {
+  background: var(--surface-white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.metricIcon { font-size: 1.4rem; }
+
+.metricValue {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.metricGreen .metricValue { color: #22C55E; }
+.metricGold .metricValue { color: #F59E0B; }
+.metricBlue .metricValue { color: #2B5EA7; }
+.metricPurple .metricValue { color: #9B8EC4; }
+
+/* Panel */
 .panel {
   background: var(--surface-white);
   border: 1px solid var(--border);
@@ -31,10 +82,12 @@
 .panelHeader h2 {
   font-size: 0.88rem;
   font-weight: 700;
+  margin: 0;
 }
 
+/* Pillar list */
 .pillarList {
-  padding: 8px 20px;
+  padding: 4px 20px;
 }
 
 .pillarRow {
@@ -67,7 +120,8 @@
 
 .pillarLabel {
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
 }
 
 .pillarProgress {
@@ -77,39 +131,42 @@
   min-width: 160px;
 }
 
-.pillarProgress span {
-  font-weight: 700;
-  font-size: 0.85rem;
+.pillarPct {
+  font-weight: 800;
+  font-size: 0.88rem;
   min-width: 36px;
+  color: var(--text-primary);
 }
 
+/* Privacy note */
 .privacyNote {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 16px 20px;
-  border-radius: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
   background: rgba(43, 94, 167, 0.03);
-  border: 1px solid rgba(43, 94, 167, 0.1);
+  border: 1px solid rgba(43, 94, 167, 0.08);
 }
 
 .privacyIcon {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .privacyNote p {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
 
+/* Resource cards */
 .resourceGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
   padding: 16px 20px;
 }
 
@@ -117,10 +174,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
+  padding: 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: var(--surface-gray);
+  background: var(--surface-white);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -132,21 +189,29 @@
 }
 
 .resourceIcon {
-  font-size: 1.4rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .resourceCard strong {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--text-primary);
 }
 
 .resourceCard span {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
 }
 
+/* Milestones */
 .milestoneList {
-  padding: 8px 20px;
+  padding: 4px 20px;
 }
 
 .milestoneItem {
@@ -162,33 +227,49 @@
 }
 
 .milestoneIcon {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--surface-gray);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
 }
 
 .milestoneText {
   display: block;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .milestoneDate {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
   margin-top: 2px;
 }
 
 @media (max-width: 1024px) {
-  .kpiRow {
+  .metricGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  .kpiRow {
-    grid-template-columns: 1fr;
+  .metricGrid {
+    grid-template-columns: 1fr 1fr;
   }
-
   .resourceGrid {
     grid-template-columns: 1fr;
+  }
+  .pillarRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .pillarProgress {
+    width: 100%;
   }
 }
