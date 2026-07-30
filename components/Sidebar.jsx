@@ -15,7 +15,7 @@ const navConfig = {
       label: 'Sessions',
       icon: '📋',
       children: [
-        { id: 'psychology', label: 'Psychology', href: '/admin/sessions/psychology', color: '#9B8EC4' },
+        { id: 'wellbeing', label: 'Wellbeing Program', href: '/admin/sessions/wellbeing', color: '#2B5EA7' },
         { id: 'nutrition', label: 'Nutrition', href: '/admin/sessions/nutrition', color: '#7CB87A' },
         { id: 'snc', label: 'Strength & Conditioning', href: '/admin/sessions/snc', color: '#C4A84D' },
         { id: 'physiotherapy', label: 'Physiotherapy', href: '/admin/sessions/physiotherapy', color: '#2B5EA7' },
@@ -26,7 +26,7 @@ const navConfig = {
   ],
   student: [
     { id: 'dashboard', label: 'Dashboard', href: '/student', icon: '📊' },
-    { id: 'my-learning', label: 'My Tracks', href: '/student/tracks', icon: '🎯' },
+    { id: 'wellbeing', label: 'Wellbeing Program', href: '/student/wellbeing', icon: '🧘' },
     { id: 'progress', label: 'Progress', href: '/student/progress', icon: '📈' },
     { id: 'achievements', label: 'Achievements', href: '/student/achievements', icon: '🏅' },
   ],
