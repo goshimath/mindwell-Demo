@@ -10,12 +10,11 @@ import { students, videos } from '@/lib/data';
 import { t } from '@/lib/strings';
 import styles from '@/styles/dashboard.module.css';
 
-// Generate class-wise data from student data
 function buildClassData(progressMap) {
   const classMap = {};
   students.forEach((s) => {
     if (!classMap[s.className]) {
-      classMap[s.className] = { name: `Grade ${s.className}`, students: 0, completed: 0, inProgress: 0, totalTime: 0 };
+      classMap[s.className] = { name: `Grade ${s.className}`, students: 0, completed: 0, inProgress: 0 };
     }
     const cls = classMap[s.className];
     cls.students++;
@@ -29,7 +28,6 @@ function buildClassData(progressMap) {
     const totalPossible = cls.students * videos.length;
     const completedPct = totalPossible ? Math.round((cls.completed / totalPossible) * 100) : 0;
     const inProgressPct = totalPossible ? Math.round((cls.inProgress / totalPossible) * 100) : 0;
-    // Fake avg time for demo
     const avgMin = Math.round(12 + Math.random() * 20);
     return {
       name: cls.name,
@@ -46,13 +44,11 @@ export default function AdminDashboard({ lang = 'en' }) {
   const [selectedGrade, setSelectedGrade] = useState('All');
   const [toast, setToast] = useState(null);
 
-  // Simulate loading
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
 
-  // Demo progress data
   const progressMap = useMemo(() => {
     const map = {};
     students.forEach((s) => { map[s.id] = { ...s.progress }; });
@@ -61,13 +57,11 @@ export default function AdminDashboard({ lang = 'en' }) {
 
   const classData = useMemo(() => buildClassData(progressMap), [progressMap]);
 
-  // Filter by grade
   const filteredClasses = useMemo(() => {
     if (selectedGrade === 'All') return classData;
     return classData.filter((c) => c.name.includes(selectedGrade));
   }, [classData, selectedGrade]);
 
-  // KPI stats
   const stats = useMemo(() => {
     const totalStudents = students.length;
     const watchedByStudent = students.map(
@@ -76,7 +70,6 @@ export default function AdminDashboard({ lang = 'en' }) {
     const totalWatched = watchedByStudent.reduce((a, b) => a + b, 0);
     const totalPossible = totalStudents * videos.length;
     const completion = totalPossible ? Math.round((totalWatched / totalPossible) * 100) : 0;
-    // Fake "this week active" for demo
     const thisWeekActive = Math.round(totalStudents * 0.72);
     return { totalStudents, totalWatched, completion, thisWeekActive };
   }, [progressMap]);
@@ -91,18 +84,16 @@ export default function AdminDashboard({ lang = 'en' }) {
 
   return (
     <>
-      {/* Header */}
       <div className={styles.header}>
         <div>
-          <h2>{lang === 'hi' ? `वापसी, ${schoolName}` : `Welcome back, Greenfield Academy`}</h2>
-          <p>{lang === 'hi' ? 'आज आपके स्कूल की wellbeing स्थिति' : 'Here\'s what\'s happening across your school today'}</p>
+          <h2>{lang === 'hi' ? 'वापसी, iSpan स्कूल' : 'Welcome back, iSpan School'}</h2>
+          <p>{lang === 'hi' ? 'आज आपके स्कूल की वेलनेस स्थिति' : 'Here\'s what\'s happening across your school today'}</p>
         </div>
         <button className={styles.exportBtn} onClick={handleExport}>
           {lang === 'hi' ? 'रिपोर्ट एक्सपोर्ट' : 'Export Report'}
         </button>
       </div>
 
-      {/* 4 KPI cards */}
       <div className={styles.statGrid}>
         <StatCard
           icon="👥"
@@ -118,7 +109,7 @@ export default function AdminDashboard({ lang = 'en' }) {
           variant="teal"
         />
         <StatCard
-          icon="▶️"
+          icon="📋"
           label={t(lang, 'watchedVideos')}
           value={stats.totalWatched.toLocaleString()}
           trend={`↑ 8% ${t(lang, 'thisWeek')}`}
@@ -131,7 +122,6 @@ export default function AdminDashboard({ lang = 'en' }) {
         />
       </div>
 
-      {/* Class-wise progress table */}
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
           <div>
@@ -155,16 +145,12 @@ export default function AdminDashboard({ lang = 'en' }) {
         <ClassTable classes={filteredClasses} lang={lang} />
       </div>
 
-      {/* Quick actions */}
       <div>
         <h3 className={styles.sectionTitle}>{lang === 'hi' ? 'त्वरित कार्य' : 'Quick Actions'}</h3>
         <QuickActions lang={lang} />
       </div>
 
-      {/* Toast */}
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </>
   );
 }
-
-const schoolName = 'Greenfield Academy';

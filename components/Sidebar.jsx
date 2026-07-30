@@ -32,16 +32,16 @@ export default function Sidebar({ role, lang, user, schoolName, onLogout }) {
 
   return (
     <aside className={styles.sidebar}>
-      {/* Brand */}
       <div className={styles.brand}>
-        <div className={styles.logo}>MW</div>
+        <div className={styles.logo}>
+          <span className={styles.logoIcon}>✦</span>
+        </div>
         <div>
           <strong>{schoolName}</strong>
           <span>{t(lang, 'enterprise')}</span>
         </div>
       </div>
 
-      {/* Role switcher */}
       <div className={styles.roleSwitcher}>
         <span className={styles.sectionLabel}>{t(lang, 'switchView')}</span>
         <div className={styles.roleButtons}>
@@ -57,7 +57,6 @@ export default function Sidebar({ role, lang, user, schoolName, onLogout }) {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className={styles.nav}>
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/admin' && item.href !== '/student' && item.href !== '/parent' && pathname.startsWith(item.href));
@@ -73,7 +72,6 @@ export default function Sidebar({ role, lang, user, schoolName, onLogout }) {
         })}
       </nav>
 
-      {/* Footer */}
       <div className={styles.footer}>
         <button className={styles.logoutBtn} onClick={onLogout}>
           {t(lang, 'signOut')}

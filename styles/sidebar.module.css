@@ -25,10 +25,12 @@
   place-items: center;
   background: linear-gradient(135deg, var(--navy), var(--teal));
   color: white;
-  font-weight: 900;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+  font-size: 1.2rem;
   flex-shrink: 0;
+}
+
+.logoIcon {
+  color: var(--teal-light);
 }
 
 .brand strong {

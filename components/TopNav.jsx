@@ -8,7 +8,7 @@ import styles from '@/styles/topnav.module.css';
 const navItems = [
   { label: 'Dashboard', href: '/admin' },
   { label: 'Students', href: '/admin/students' },
-  { label: 'Curriculum', href: '/admin/curriculum' },
+  { label: 'Programs', href: '/admin/curriculum' },
   { label: 'Reports', href: '/admin/reports' },
 ];
 
@@ -19,11 +19,12 @@ export default function TopNav({ lang, onLogout }) {
   return (
     <nav className={styles.topnav}>
       <div className={styles.inner}>
-        {/* Left: logo + nav links */}
         <div className={styles.left}>
           <Link href="/admin" className={styles.brand}>
-            <div className={styles.logo}>MW</div>
-            <span>MindWell</span>
+            <div className={styles.logo}>
+              <span className={styles.logoIcon}>✦</span>
+            </div>
+            <span className={styles.brandName}>iSpan</span>
           </Link>
           <div className={styles.navLinks}>
             {navItems.map((item) => (
@@ -38,7 +39,6 @@ export default function TopNav({ lang, onLogout }) {
           </div>
         </div>
 
-        {/* Right: lang + admin dropdown */}
         <div className={styles.right}>
           <div className={styles.langToggle}>
             <button className={lang === 'en' ? styles.langActive : ''}>EN</button>
@@ -49,7 +49,6 @@ export default function TopNav({ lang, onLogout }) {
             Admin
           </div>
 
-          {/* Mobile hamburger */}
           <button
             className={styles.hamburger}
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -62,7 +61,6 @@ export default function TopNav({ lang, onLogout }) {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className={styles.mobileMenu}>
           {navItems.map((item) => (

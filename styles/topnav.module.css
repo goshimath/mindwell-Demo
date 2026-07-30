@@ -39,13 +39,17 @@
   place-items: center;
   background: linear-gradient(135deg, var(--navy), var(--teal));
   color: white;
-  font-weight: 900;
-  font-size: 0.65rem;
+  font-size: 1rem;
 }
 
-.brand span {
-  font-weight: 800;
-  font-size: 0.95rem;
+.logoIcon {
+  color: var(--teal-light);
+}
+
+.brandName {
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--navy);
 }
 
 .navLinks {
