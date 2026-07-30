@@ -9,7 +9,10 @@
 
 /* Hero */
 .hero {
-  background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 55%, #00897b 100%);
+  background: linear-gradient(135deg, rgba(10, 22, 40, 0.92) 0%, rgba(26, 58, 92, 0.88) 55%, rgba(0, 137, 123, 0.85) 100%),
+    url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
   color: white;
   padding: 16px 0 48px;
   position: relative;

@@ -60,19 +60,40 @@ export default function StudentDashboard() {
       {/* OVERVIEW TAB */}
       {activeTab === 'overview' && (
         <>
-          {/* Hero progress */}
+          {/* Hero card — interesting layout */}
           <div className={styles.heroCard}>
-            <div className={styles.heroContent}>
+            <div className={styles.heroLeft}>
               <span className={styles.heroEyebrow}>YOUR WELLBEING JOURNEY</span>
-              <h1 className={styles.heroTitle}>Hi Aarav! 👋</h1>
+              <h1 className={styles.heroTitle}>Hi Aarav! <span className={styles.wave}>👋</span></h1>
               <p className={styles.heroMeta}>{completedCount} of {totalVideos} videos completed · {inProgressCount} in progress</p>
               <div className={styles.heroProgress}>
                 <ProgressBar value={overallProgress} color="rgba(255,255,255,0.9)" />
                 <span className={styles.heroPct}>{overallProgress}%</span>
               </div>
-              <button className={styles.heroBtn} onClick={() => setActiveTab('wellbeing')}>
-                Continue Learning ▶
-              </button>
+              <div className={styles.heroActions}>
+                <button className={styles.heroBtn} onClick={() => setActiveTab('wellbeing')}>
+                  ▶ Continue Learning
+                </button>
+                <div className={styles.heroStreak}>
+                  <span>🔥</span>
+                  <div>
+                    <strong>3-day streak</strong>
+                    <span>Keep going!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.heroRight}>
+              <div className={styles.heroIllustration}>
+                <span className={styles.heroEmoji1}>🧠</span>
+                <span className={styles.heroEmoji2}>💪</span>
+                <span className={styles.heroEmoji3}>🍎</span>
+                <span className={styles.heroEmoji4}>🧘</span>
+              </div>
+              <div className={styles.heroQuote}>
+                <span>&ldquo;</span>
+                <p>Every small step counts towards your wellness journey</p>
+              </div>
             </div>
           </div>
 
