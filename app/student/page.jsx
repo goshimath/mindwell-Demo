@@ -60,41 +60,40 @@ export default function StudentDashboard() {
       {/* OVERVIEW TAB */}
       {activeTab === 'overview' && (
         <>
-          {/* Hero card — interesting layout */}
-          <div className={styles.heroCard}>
-            <div className={styles.heroLeft}>
-              <span className={styles.heroEyebrow}>YOUR WELLBEING JOURNEY</span>
-              <h1 className={styles.heroTitle}>Hi Aarav! <span className={styles.wave}>👋</span></h1>
-              <p className={styles.heroMeta}>{completedCount} of {totalVideos} videos completed · {inProgressCount} in progress</p>
-              <div className={styles.heroProgress}>
-                <ProgressBar value={overallProgress} color="rgba(255,255,255,0.9)" />
-                <span className={styles.heroPct}>{overallProgress}%</span>
-              </div>
-              <div className={styles.heroActions}>
-                <button className={styles.heroBtn} onClick={() => setActiveTab('wellbeing')}>
-                  ▶ Continue Learning
-                </button>
-                <div className={styles.heroStreak}>
-                  <span>🔥</span>
-                  <div>
-                    <strong>3-day streak</strong>
-                    <span>Keep going!</span>
-                  </div>
-                </div>
+          {/* Greeting + streak/badges chips */}
+          <div className={styles.greetingRow}>
+            <div className={styles.greetingLeft}>
+              <h1 className={styles.greetingTitle}>Hi Aarav! <span className={styles.wave}>👋</span></h1>
+              <p className={styles.greetingSub}>Let&apos;s continue your wellbeing journey.</p>
+            </div>
+            <div className={styles.greetingChips}>
+              <span className={styles.chip}>🔥 3-day streak</span>
+              <span className={styles.chip}>🏅 12 badges</span>
+            </div>
+          </div>
+
+          {/* Current session card */}
+          <div className={styles.sessionCard}>
+            <div className={styles.sessionLabel}>NOW PLAYING</div>
+            <div className={styles.sessionRow}>
+              <span className={styles.sessionIcon}>🧠</span>
+              <div className={styles.sessionInfo}>
+                <strong>Emotional Health — Building Resilience</strong>
+                <span>Session 3 of 8 · 12 min</span>
               </div>
             </div>
-            <div className={styles.heroRight}>
-              <div className={styles.heroIllustration}>
-                <span className={styles.heroEmoji1}>🧠</span>
-                <span className={styles.heroEmoji2}>💪</span>
-                <span className={styles.heroEmoji3}>🍎</span>
-                <span className={styles.heroEmoji4}>🧘</span>
-              </div>
-              <div className={styles.heroQuote}>
-                <span>&ldquo;</span>
-                <p>Every small step counts towards your wellness journey</p>
-              </div>
+            <div className={styles.sessionProgress}>
+              <ProgressBar value={37} color="white" />
+              <span>37%</span>
             </div>
+            <button className={styles.sessionBtn} onClick={() => setActiveTab('wellbeing')}>
+              ▶ Continue Learning
+            </button>
+          </div>
+
+          {/* Progress summary */}
+          <div className={styles.progressSummary}>
+            <span>{overallProgress}% complete · {completedCount} of {totalVideos} videos done</span>
           </div>
 
           {/* Browse by area */}
