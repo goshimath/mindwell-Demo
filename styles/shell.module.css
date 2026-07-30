@@ -1,0 +1,102 @@
+.appShell {
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbarInner {
+  width: min(1400px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoSmall {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--navy), var(--teal));
+  color: white;
+  font-weight: 900;
+  font-size: 0.7rem;
+}
+
+.topbarTitle {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--navy);
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.langToggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.langToggle button {
+  border: none;
+  background: transparent;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--muted);
+  transition: all 0.15s ease;
+}
+
+.langActive {
+  background: white !important;
+  color: var(--navy) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.pageWidth {
+  width: min(1400px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.appLayout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 18px 0 32px;
+}
+
+.workspace {
+  display: grid;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .appLayout {
+    grid-template-columns: 1fr;
+  }
+}
