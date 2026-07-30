@@ -21,6 +21,7 @@ export default function StudentDashboard() {
   const [selectedExpert, setSelectedExpert] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+  const [callType, setCallType] = useState('video');
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
   const sectionRefs = useRef({});
@@ -224,6 +225,19 @@ export default function StudentDashboard() {
               <h3>Schedule your session</h3>
               <div className={styles.formRow}>
                 <div className={styles.formField}>
+                  <label>Call Type</label>
+                  <div className={styles.callTypeRow}>
+                    <button className={`${styles.callTypeBtn} ${callType === 'video' ? styles.callTypeActive : ''}`} onClick={() => setCallType('video')}>
+                      <span>📹</span> Video Call
+                    </button>
+                    <button className={`${styles.callTypeBtn} ${callType === 'audio' ? styles.callTypeActive : ''}`} onClick={() => setCallType('audio')}>
+                      <span>📞</span> Audio Call
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.formRow}>
+                <div className={styles.formField}>
                   <label>Date</label>
                   <select value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}>
                     <option value="">Select date</option>
@@ -241,7 +255,9 @@ export default function StudentDashboard() {
                   </select>
                 </div>
               </div>
-              <button className={styles.bookBtn} onClick={handleBook} disabled={!selectedDate || !selectedTime}>Book Appointment</button>
+              <button className={styles.bookBtn} onClick={handleBook} disabled={!selectedDate || !selectedTime}>
+                <span>💬</span> Book WhatsApp {callType === 'video' ? 'Video' : 'Audio'} Call
+              </button>
             </div>
           )}
           <div className={styles.sectionHeader}><h2>YOUR APPOINTMENTS</h2></div>
@@ -255,8 +271,18 @@ export default function StudentDashboard() {
                     <strong>{expert?.name}</strong>
                     <span>{apt.topic}</span>
                     <span className={styles.aptDate}>📅 {apt.date} at {apt.time}</span>
+                    <span className={styles.aptCallType}>
+                      {apt.callType === 'video' ? '📹 Video Call' : '📞 Audio Call'} via WhatsApp
+                    </span>
                   </div>
-                  <span className={`${styles.aptStatus} ${apt.status === 'booked' ? styles.aptBooked : styles.aptUpcoming}`}>{apt.status}</span>
+                  <div className={styles.aptActions}>
+                    <span className={`${styles.aptStatus} ${apt.status === 'booked' ? styles.aptBooked : styles.aptUpcoming}`}>{apt.status}</span>
+                    {apt.status === 'booked' && (
+                      <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className={styles.whatsappBtn}>
+                        💬 Join on WhatsApp
+                      </a>
+                    )}
+                  </div>
                 </div>
               );
             })}
