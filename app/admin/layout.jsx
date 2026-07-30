@@ -1,35 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import TopNav from '@/components/TopNav';
-import { school } from '@/lib/data';
-import styles from '@/styles/shell.module.css';
+import Sidebar from '@/components/Sidebar';
+import { school, demoAccounts } from '@/lib/data';
+import styles from '@/styles/appshell.module.css';
 
 export default function AdminLayout({ children }) {
-  const [lang, setLang] = useState('en');
   const router = useRouter();
+  const [user] = useState({ name: 'Admin', role: 'School Admin' });
 
-  const handleLogout = () => {
-    localStorage.removeItem('mindwell-demo-state');
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('ispan-demo-state');
     router.push('/');
-  };
+  }, [router]);
 
   const childWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { lang });
+      return React.cloneElement(child, { user, onLogout: handleLogout });
     }
     return child;
   });
 
   return (
-    <div className={styles.appShell}>
-      <TopNav lang={lang} onLogout={handleLogout} />
-      <div className={styles.pageWidth}>
-        <div className={styles.adminContent}>
+    <div className={styles.shell}>
+      <Sidebar role="admin" user={user} onLogout={handleLogout} />
+      <main className={styles.main}>
+        <div className={styles.content}>
           {childWithProps}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

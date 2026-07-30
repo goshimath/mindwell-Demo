@@ -129,7 +129,7 @@ export default function LandingPage() {
             {pillars.map((pillar) => (
               <div key={pillar.id} className={styles.pillarCard}>
                 <span className={styles.pillarIcon}>{pillar.icon}</span>
-                <h3>{pillar.title[lang]}</h3>
+                <h3>{pillar.label}</h3>
                 <p>{pillar.description}</p>
               </div>
             ))}

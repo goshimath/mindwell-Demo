@@ -1,0 +1,189 @@
+.greeting h1 {
+  font: var(--font-h1);
+}
+
+.greeting p {
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--card-gap);
+}
+
+.panel {
+  background: var(--surface-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.panelHeader {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panelHeader h2 {
+  font: var(--font-h3);
+}
+
+.pillarList {
+  padding: 8px 20px;
+}
+
+.pillarRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.pillarRow:last-child {
+  border-bottom: none;
+}
+
+.pillarInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pillarIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
+.pillarLabel {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.pillarProgress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.pillarProgress span {
+  font-weight: 700;
+  font-size: 0.85rem;
+  min-width: 36px;
+}
+
+.privacyNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--radius-card);
+  background: rgba(43, 94, 167, 0.04);
+  border: 1px solid rgba(43, 94, 167, 0.12);
+}
+
+.privacyIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.privacyNote p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.resourceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.resourceCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border);
+  background: var(--surface-gray);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.resourceCard:hover {
+  border-color: var(--brand-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.resourceIcon {
+  font-size: 1.3rem;
+}
+
+.resourceCard strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.resourceCard span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.milestoneList {
+  padding: 8px 20px;
+}
+
+.milestoneItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.milestoneItem:last-child {
+  border-bottom: none;
+}
+
+.milestoneIcon {
+  font-size: 1.2rem;
+}
+
+.milestoneText {
+  display: block;
+  font-size: 0.88rem;
+}
+
+.milestoneDate {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+@media (max-width: 1024px) {
+  .kpiRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .kpiRow {
+    grid-template-columns: 1fr;
+  }
+
+  .resourceGrid {
+    grid-template-columns: 1fr;
+  }
+}
