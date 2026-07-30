@@ -21,7 +21,8 @@ export default function LandingPage() {
     const valid =
       (email === demoAccounts.admin.email && password === demoAccounts.admin.password && role === 'admin') ||
       (email === demoAccounts.student.email && password === demoAccounts.student.password && role === 'student') ||
-      (email === demoAccounts.parent.email && password === demoAccounts.parent.password && role === 'parent');
+      (email === demoAccounts.parent.email && password === demoAccounts.parent.password && role === 'parent') ||
+      (email === demoAccounts['super-admin'].email && password === demoAccounts['super-admin'].password && role === 'super-admin');
 
     if (!valid) {
       setError(lang === 'hi' ? 'गलत प्रमाण-पत्र' : 'Invalid credentials');
@@ -101,6 +102,7 @@ export default function LandingPage() {
                   <option value="student">{t(lang, 'student')}</option>
                   <option value="admin">{t(lang, 'admin')}</option>
                   <option value="parent">{t(lang, 'parent')}</option>
+                  <option value="super-admin">Super Admin</option>
                 </select>
               </div>
               <div className={styles.field}>
@@ -129,7 +131,8 @@ export default function LandingPage() {
                   <strong>{t(lang, 'schoolId')}:</strong> ISP-001<br />
                   <strong>Admin:</strong> admin@ispan.in / demo123<br />
                   <strong>Student:</strong> student1@ispan.in / demo123<br />
-                  <strong>Parent:</strong> parent@ispan.in / demo123
+                  <strong>Parent:</strong> parent@ispan.in / demo123<br />
+                  <strong>Super Admin:</strong> superadmin@ispan.in / demo123
                 </div>
               </details>
             </div>

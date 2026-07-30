@@ -46,6 +46,13 @@ const navConfig = {
     { id: 'resources', label: 'Resources', href: '/parent', icon: '📚' },
     { id: 'milestones', label: 'Milestones', href: '/parent', icon: '🏅' },
   ],
+  'super-admin': [
+    { id: 'dashboard', label: 'Dashboard', href: '/super-admin', icon: '📊' },
+    { id: 'schools', label: 'Schools', href: '/super-admin', icon: '🏫' },
+    { id: 'subscriptions', label: 'Subscriptions', href: '/super-admin', icon: '💳' },
+    { id: 'revenue', label: 'Revenue', href: '/super-admin', icon: '📈' },
+    { id: 'settings', label: 'Settings', href: '/super-admin', icon: '⚙️' },
+  ],
 };
 
 export default function Sidebar({ role, user, onLogout }) {
