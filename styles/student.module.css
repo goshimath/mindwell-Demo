@@ -25,12 +25,12 @@
 /* === HERO === */
 .heroWrap {
   background: linear-gradient(135deg, #2B5EA7 0%, #1a6b5a 40%, #0d8b7a 70%, #9B8EC4 100%);
-  border-radius: 20px;
-  padding: 28px 32px 24px;
+  border-radius: 16px;
+  padding: 20px 24px 16px;
   color: white;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(43, 94, 167, 0.3);
+  box-shadow: 0 4px 16px rgba(43, 94, 167, 0.2);
 }
 
 .heroDecor {
@@ -62,11 +62,11 @@
 
 .heroLeft { flex: 1; }
 
-.heroGreeting { font-size: 1.8rem; font-weight: 800; color: white; margin: 0; }
+.heroGreeting { font-size: 1.3rem; font-weight: 800; color: white; margin: 0; }
 .starBounce { display: inline-block; animation: starBounce 1s ease-in-out infinite; }
 @keyframes starBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2) rotate(10deg); } }
 
-.heroEncourage { color: rgba(255, 255, 255, 0.85); margin: 6px 0 18px; font-size: 0.95rem; line-height: 1.6; }
+.heroEncourage { color: rgba(255, 255, 255, 0.85); margin: 4px 0 12px; font-size: 0.88rem; line-height: 1.5; }
 .heroEncourage strong { color: white; }
 
 /* Session card with pillar border */
@@ -82,10 +82,10 @@
 
 .sessionPillarBorder { width: 5px; flex-shrink: 0; }
 
-.sessionBody { padding: 16px 18px; }
-.sessionLabel { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.6); display: block; margin-bottom: 8px; }
-.sessionBody strong { display: block; font-size: 0.95rem; color: white; margin-bottom: 2px; }
-.sessionMeta { font-size: 0.78rem; color: rgba(255, 255, 255, 0.7); display: block; margin-bottom: 10px; }
+.sessionBody { padding: 12px 14px; }
+.sessionLabel { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.6); display: block; margin-bottom: 6px; }
+.sessionBody strong { display: block; font-size: 0.88rem; color: white; margin-bottom: 2px; }
+.sessionMeta { font-size: 0.72rem; color: rgba(255, 255, 255, 0.7); display: block; margin-bottom: 8px; }
 
 .sessionProgress { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .sessionProgress > div { flex: 1; background: rgba(255, 255, 255, 0.2); }
@@ -112,50 +112,36 @@
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 18px;
+  border-radius: 12px;
+  padding: 14px;
   text-align: center;
 }
 
-.moodEmoji { font-size: 2.2rem; display: block; margin-bottom: 6px; }
-.moodCard strong { display: block; font-size: 0.78rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-.moodLabel { font-size: 0.92rem; font-weight: 800; color: white; display: block; margin-bottom: 10px; }
+.moodEmoji { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+.moodCard strong { display: block; font-size: 0.68rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.moodLabel { font-size: 0.82rem; font-weight: 800; color: white; display: block; margin-bottom: 8px; }
 .moodDots { display: flex; gap: 6px; justify-content: center; }
 .moodDot { width: 10px; height: 10px; border-radius: 50%; opacity: 0.7; }
 
 /* Stat chips — colored pills */
-.statChips { display: flex; gap: 10px; margin-top: 16px; position: relative; z-index: 1; flex-wrap: wrap; }
+.statChips { display: flex; gap: 8px; margin-top: 12px; position: relative; z-index: 1; flex-wrap: wrap; }
 
 .statChip {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border-radius: 12px;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
   font-weight: 700;
 }
-.statChip span:first-child { font-size: 1.3rem; }
-.statChip strong { display: block; font-size: 1.1rem; color: white; line-height: 1; }
-.statChip > div span:last-child { font-size: 0.72rem; color: rgba(255, 255, 255, 0.7); }
+.statChip span:first-child { font-size: 1.1rem; }
+.statChip strong { display: block; font-size: 1rem; color: white; line-height: 1; }
+.statChip > div span:last-child { font-size: 0.68rem; color: rgba(255, 255, 255, 0.7); }
 
 .chipGold { background: rgba(196, 168, 77, 0.25); }
 .chipBlue { background: rgba(43, 94, 167, 0.25); }
 .chipGreen { background: rgba(124, 184, 122, 0.25); }
 .chipPurple { background: rgba(155, 142, 196, 0.25); }
-
-/* Character illustration */
-.characterWrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-  position: relative;
-  z-index: 1;
-}
-.characterSvg {
-  width: 140px;
-  height: auto;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
-}
 
 /* Section */
 .sectionHeader { margin-top: 8px; }
