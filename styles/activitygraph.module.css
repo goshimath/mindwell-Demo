@@ -1,55 +1,25 @@
-.graphPage {
-  display: grid;
-  gap: 20px;
-}
+.graphPage { display: grid; gap: 20px; }
 
-.graphHeader h1 {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.graphHeader p {
-  color: var(--text-secondary);
-  margin: 4px 0 0;
-}
+.graphHeader h1 { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin: 0; }
+.graphHeader p { color: var(--text-secondary); margin: 4px 0 0; }
 
 .graphContainer {
-  background: #0f1729;
+  background: linear-gradient(135deg, #0f1729 0%, #1a2744 50%, #0d1f3c 100%);
   border-radius: 16px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.graphSvg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+.graphSvg { width: 100%; height: auto; display: block; }
 
-.legend {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 16px;
-}
+.nodeCircle { transition: all 0.2s ease; }
+.nodeIcon { pointer-events: none; }
 
-.legend span {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-}
+.edge { transition: opacity 0.2s ease; }
 
-.legendLine {
-  display: inline-block;
-  width: 24px;
-  height: 3px;
-  border-radius: 2px;
-}
+.pulseGlow { animation: pulseGlow 2s ease-in-out infinite; }
+@keyframes pulseGlow { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
 
 .summaryPanel {
   background: var(--surface-white);
@@ -58,59 +28,13 @@
   padding: 20px;
 }
 
-.summaryPanel h2 {
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin: 0 0 8px;
-}
-
-.summaryIntro {
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.summaryTable {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.summaryRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--surface-gray);
-}
-
-.summaryDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.summaryLabel {
-  font-weight: 700;
-  font-size: 0.88rem;
-  flex: 1;
-  color: var(--text-primary);
-}
-
-.summaryNum {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.summaryProgress {
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: var(--brand-blue);
-}
+.summaryPanel h2 { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin: 0 0 8px; }
+.summaryIntro { font-size: 0.9rem; color: var(--text-primary); line-height: 1.6; margin-bottom: 16px; }
+.summaryTable { display: flex; flex-direction: column; gap: 8px; }
+.summaryRow { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; background: var(--surface-gray); transition: transform 0.15s ease; }
+.summaryRow:hover { transform: translateX(4px); }
+.summaryIcon { font-size: 1.2rem; }
+.summaryDot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.summaryLabel { font-weight: 700; font-size: 0.88rem; flex: 1; color: var(--text-primary); }
+.summaryNum { font-size: 0.82rem; color: var(--text-secondary); font-weight: 600; }
+.summaryProgress { font-size: 0.92rem; font-weight: 800; color: var(--brand-blue); min-width: 40px; text-align: right; }

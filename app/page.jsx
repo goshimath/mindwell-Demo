@@ -36,6 +36,15 @@ export default function LandingPage() {
     <main className={styles.landing}>
       {/* Hero */}
       <section className={styles.hero}>
+        {/* CSS-only decorative background */}
+        <div className={styles.heroBg}>
+          <div className={styles.bgCircle1} />
+          <div className={styles.bgCircle2} />
+          <div className={styles.bgCircle3} />
+          <div className={styles.bgWave1} />
+          <div className={styles.bgWave2} />
+        </div>
+
         <div className={styles.pageWidth}>
           <div className={styles.topbar}>
             <div className={styles.brand}>
