@@ -15,7 +15,7 @@ const childData = {
   wellnessScore: 72,
   sessionsCompleted: 16,
   pillarProgress: {
-    psychology: 80,
+    emotional: 80,
     nutrition: 60,
     snc: 45,
     physiotherapy: 70,

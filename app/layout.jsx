@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'iSpan — Inspiring Stronger Minds & Bodies',
-  description: 'India\'s first integrated wellness platform for schools. Psychology, physiotherapy, nutrition, and strength conditioning — for students, teachers, and parents.',
+  description: 'India\'s first integrated wellness platform for schools. Emotional health, physiotherapy, nutrition, and strength conditioning — for students, teachers, and parents.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,

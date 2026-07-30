@@ -11,11 +11,11 @@ const navConfig = {
     { id: 'dashboard', label: 'Dashboard', href: '/admin', icon: '📊' },
     { id: 'students', label: 'Students', href: '/admin/students', icon: '👥' },
     {
-      id: 'sessions',
-      label: 'Sessions',
-      icon: '📋',
+      id: 'wellbeing',
+      label: 'Wellbeing Program',
+      icon: '🧘',
       children: [
-        { id: 'wellbeing', label: 'Wellbeing Program', href: '/admin/sessions/wellbeing', color: '#2B5EA7' },
+        { id: 'emotional', label: 'Emotional Health', href: '/admin/sessions/emotional', color: '#9B8EC4' },
         { id: 'nutrition', label: 'Nutrition', href: '/admin/sessions/nutrition', color: '#7CB87A' },
         { id: 'snc', label: 'Strength & Conditioning', href: '/admin/sessions/snc', color: '#C4A84D' },
         { id: 'physiotherapy', label: 'Physiotherapy', href: '/admin/sessions/physiotherapy', color: '#2B5EA7' },
@@ -26,7 +26,17 @@ const navConfig = {
   ],
   student: [
     { id: 'dashboard', label: 'Dashboard', href: '/student', icon: '📊' },
-    { id: 'wellbeing', label: 'Wellbeing Program', href: '/student/wellbeing', icon: '🧘' },
+    {
+      id: 'wellbeing',
+      label: 'Wellbeing Program',
+      icon: '🧘',
+      children: [
+        { id: 'emotional', label: 'Emotional Health', href: '/student/wellbeing/emotional', color: '#9B8EC4' },
+        { id: 'nutrition', label: 'Nutrition', href: '/student/wellbeing/nutrition', color: '#7CB87A' },
+        { id: 'snc', label: 'Strength & Conditioning', href: '/student/wellbeing/snc', color: '#C4A84D' },
+        { id: 'physiotherapy', label: 'Physiotherapy', href: '/student/wellbeing/physiotherapy', color: '#2B5EA7' },
+      ],
+    },
     { id: 'progress', label: 'Progress', href: '/student/progress', icon: '📈' },
     { id: 'achievements', label: 'Achievements', href: '/student/achievements', icon: '🏅' },
   ],

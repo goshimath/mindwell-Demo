@@ -95,20 +95,20 @@ export default function AdminDashboard() {
       {/* KPI cards */}
       <div className={styles.kpiRow}>
         <KPICard icon="👥" label="Students Enrolled" value={totalStudents.toLocaleString()} trend="↑ 12% this week" />
-        <KPICard icon="💚" label="Wellness Score" value={`${avgWellness}%`} trend="↑ 5% this week" variant="variant-green" />
+        <KPICard icon="💚" label="Overall Wellbeing Score" value={`${avgWellness}%`} trend="↑ 5% this week" variant="variant-green" />
         <KPICard icon="✅" label="Sessions Completed" value={totalSessions.toLocaleString()} trend="↑ 8% this week" variant="variant-blue" />
         <KPICard icon="🔥" label="Active This Week" value={activeThisWeek.toLocaleString()} trend={`${Math.round(activeThisWeek / totalStudents * 100)}% of enrolled`} variant="variant-gold" />
       </div>
 
-      {/* Pillar Performance */}
+      {/* Wellbeing Program — Sub-Area Performance */}
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
-          <h2>Pillar Performance</h2>
+          <h2>Wellbeing Program — Sub-Area Performance</h2>
         </div>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Pillar</th>
+              <th>Sub-Area</th>
               <th>Sessions</th>
               <th>Completion</th>
               <th>Trend</th>
