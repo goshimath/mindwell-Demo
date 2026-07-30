@@ -1,7 +1,33 @@
 .appShell {
   min-height: 100vh;
+  background: var(--surface);
 }
 
+.pageWidth {
+  width: min(1400px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.adminContent {
+  padding: 24px 0 40px;
+  display: grid;
+  gap: 18px;
+}
+
+.appLayout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 18px 0 32px;
+}
+
+.workspace {
+  display: grid;
+  gap: 16px;
+}
+
+/* Topbar (used by student/parent layouts) */
 .topbar {
   position: sticky;
   top: 0;
@@ -75,24 +101,6 @@
   background: white !important;
   color: var(--navy) !important;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-}
-
-.pageWidth {
-  width: min(1400px, calc(100% - 32px));
-  margin: 0 auto;
-}
-
-.appLayout {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-  padding: 18px 0 32px;
-}
-
-.workspace {
-  display: grid;
-  gap: 16px;
 }
 
 @media (max-width: 900px) {
